@@ -9,18 +9,18 @@ import {
     View,
 } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
-import { HomeScreen } from './components/HomeScreen'
-import { ClassificationScreen } from './components/ClassificationScreen'
-import { GuideScreen } from './components/GuideScreen'
+import { HomeScreen } from './routes/HomeScreen'
+import { ClassificationScreen } from './routes/ClassificationScreen'
+import { GuideScreen } from './routes/GuideScreen'
 import { NavigationContainer } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/MaterialIcons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 
+
 const Tab = createBottomTabNavigator();
 
 const { CalcR1, CalcR2, CalcR3, CalcDiscontinuityClass } = require('geotekppu-js/geotekppu-js/rmr/rmr__bieniawski1989');
-
 
 
 
@@ -58,7 +58,7 @@ function App() {
                 <Tab.Screen name="Classification" component={ClassificationScreen} />
                 <Tab.Screen name="Guidelines" component={GuideScreen} />
             </Tab.Navigator>
-            
+
         </NavigationContainer>
     )
 }

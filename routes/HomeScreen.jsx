@@ -9,41 +9,44 @@ import {
     View,
 } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
+import LinearGradient from 'react-native-linear-gradient';
 
 
 function TitleSection({ children, title, subtitle }) {
     const isDarkMode = useColorScheme() === 'dark';
     return (
-        <View style={styles.sectionContainer}>
-            <Text
-                style={[
-                    styles.sectionTitle,
-                    {
-                        color: isDarkMode ? Colors.white : Colors.black,
-                    },
-                ]}>
-                {title}
-            </Text>
-            <Text
-                style={[
-                    styles.sectionSubTitle,
-                    {
-                        color: isDarkMode ? Colors.light : Colors.dark,
-                    },
-                ]}
-            >
-                {subtitle}
-            </Text>
-            <Text
-                style={[
-                    styles.sectionDescription,
-                    {
-                        color: isDarkMode ? Colors.light : Colors.dark,
-                    },
-                ]}>
-                {children}
-            </Text>
-        </View>
+        <LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 1}} colors={['#0042c7', '#0080f9', '#00d5a4']} >
+            <View style={styles.sectionContainer}>
+                <Text
+                    style={[
+                        styles.sectionTitle,
+                        {
+                            color: isDarkMode ? Colors.white : Colors.black,
+                        },
+                    ]}>
+                    {title}
+                </Text>
+                <Text
+                    style={[
+                        styles.sectionSubTitle,
+                        {
+                            color: isDarkMode ? Colors.light : Colors.dark,
+                        },
+                    ]}
+                >
+                    {subtitle}
+                </Text>
+                <Text
+                    style={[
+                        styles.sectionDescription,
+                        {
+                            color: isDarkMode ? Colors.light : Colors.dark,
+                        },
+                    ]}>
+                    {children}
+                </Text>
+            </View>
+        </LinearGradient>
     );
 }
 
@@ -101,7 +104,7 @@ export function HomeScreen() {
                 style={backgroundStyle}>
                 <View>
                     <TitleSection title="GeotekPPU" subtitle="Simple geotechnical analysis app">
-                        <Text style={{ fontSize: 10, color: 'gray' }}>&#169; 2023 Daru Jaka Sasangka & Febri Fahmi Hakim</Text>
+                        <Text style={{ fontSize: 10, color: 'white' }}>&#169; 2023 Daru Jaka Sasangka & Febri Fahmi Hakim</Text>
                     </TitleSection>
                 </View>
                 <View
@@ -157,7 +160,7 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         borderColor: 'lightgray',
         borderWidth: 1,
-        borderRadius: 10,   
+        borderRadius: 10,
     },
     bodySectionTitle: {
         fontSize: 18,
