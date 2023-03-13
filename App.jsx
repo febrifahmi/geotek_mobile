@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
     SafeAreaView,
     ScrollView,
@@ -9,27 +9,22 @@ import {
     View,
 } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
-import { HomeScreen } from './routes/HomeScreen'
-import { ClassificationScreen } from './routes/ClassificationScreen'
+import { HomeStackScreen } from './routes/HomeScreen'
+import { AnalysisScreen } from './routes/AnalysisScreen'
 import { GuideScreen } from './routes/GuideScreen'
 import { NavigationContainer } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/MaterialIcons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-
-
 const Tab = createBottomTabNavigator();
-
-const { CalcR1, CalcR2, CalcR3, CalcDiscontinuityClass } = require('geotekppu-js/geotekppu-js/rmr/rmr__bieniawski1989');
-
-
 
 function App() {
     const isDarkMode = useColorScheme() === 'dark';
-
     const backgroundStyle = {
         backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
     };
+    const [status, setStatus] = useState("loaded")
+
     return (
         <NavigationContainer>
             <Tab.Navigator
@@ -41,7 +36,7 @@ function App() {
                             iconName = focused
                                 ? 'home'
                                 : 'home';
-                        } else if (route.name === 'Classification') {
+                        } else if (route.name === 'Analysis') {
                             iconName = focused ? 'fact-check' : 'fact-check';
                         } else if (route.name === 'Guidelines') {
                             iconName = focused ? 'help-center' : 'help-center';
@@ -52,16 +47,16 @@ function App() {
                     },
                     tabBarActiveTintColor: 'tomato',
                     tabBarInactiveTintColor: 'gray',
+                    headerShown: false,
                 })}
             >
-                <Tab.Screen name="Home" component={HomeScreen} />
-                <Tab.Screen name="Classification" component={ClassificationScreen} />
+                <Tab.Screen name="Home" component={HomeStackScreen} />
+                <Tab.Screen name="Analysis" component={AnalysisScreen} />
                 <Tab.Screen name="Guidelines" component={GuideScreen} />
             </Tab.Navigator>
 
         </NavigationContainer>
     )
 }
-
 
 export default App;
