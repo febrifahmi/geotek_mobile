@@ -11,7 +11,7 @@ import {
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 
-export function RMRScreen(){
+export function RMR14Screen(){
     const isDarkMode = useColorScheme() === 'dark';
 
     const backgroundStyle = {
@@ -24,7 +24,7 @@ export function RMRScreen(){
                 backgroundColor={backgroundStyle.backgroundColor}
             />
             <Text>
-                RMR Screen
+                RMR14 Screen (Celada et.al, 2014)
             </Text>
         </SafeAreaView>
     )
