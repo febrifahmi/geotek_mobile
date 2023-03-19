@@ -34,6 +34,7 @@ export function RMR14Screen() {
     const [ice, onChangeice] = React.useState(0)
     const [fss, onChangeFss] = React.useState(0)
     const [rmrbadj, onChangermrbadj] = React.useState(0)
+    const [rmr14, onChangeRMR14] = React.useState(0)
     return (
         <SafeAreaView style={backgroundStyle}>
             <ScrollView>
@@ -169,9 +170,29 @@ export function RMR14Screen() {
                             <Text>RMRb (original) value: {rmrb}</Text>
                             <Text>F0 value: {f0}</Text>
                         </View>
-                        <Button radius='md' title='Calculate RMRbAdj' onPress={() => onChangermrbadj(RMRbAdj(rmrb,f0))}></Button>
+                        <Button radius='md' title='Calculate RMRbAdj' onPress={() => onChangermrbadj(RMRbAdj(parseInt(rmrb), parseInt(f0)))}></Button>
                         <Text>RMRbAdj value = <Text style={{ color: 'green', fontWeight: '800' }}>{rmrbadj}</Text></Text>
                         {rmrbadj === null ? <Text style={{ color: 'red' }}>Out of bound. Please read the guidelines.</Text> : ''}
+                    </View>
+                    <Divider />
+                    <View style={styles.parameterSection}>
+                        <Collapse>
+                            <CollapseHeader style={styles.collapseHeader}>
+                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.lighter }}>Rock Mass Rating 14 (<Text style={{ fontWeight: '800' }}>RMR14</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
+                            </CollapseHeader>
+                            <CollapseBody style={styles.collapseBody}>
+                                <Text>RMR14 as proposed by Celada etal (2014) - RMR with three adjusment factors applied. Input three values: 'rmrb_adj' RMRb adjustment factor for tunnel orientation, 'val_fe' Fexc adjustment factor for excavation, 'val_fs' Fss adjustment factor for stress strain.</Text>
+                            </CollapseBody>
+                        </Collapse>
+                        <View style={styles.formContainer}>
+                            <Text>RMR14(rmrb_adj,Fexc,Fss):</Text>
+                            <Text>RMRbAdj (adjusted) value: {rmrbadj}</Text>
+                            <Text>Fexc value: {fexc}</Text>
+                            <Text>Fss value: {fss}</Text>
+                        </View>
+                        <Button color='success' radius='md' title='Calculate RMR14' onPress={() => onChangeRMR14(RMR14(rmrbadj,fexc,fss))}></Button>
+                        <Text style={{ backgroundColor: 'gray', color: isDarkMode ? Colors.darker : Colors.lighter, padding: 10, fontSize: 16 }}>RMR14 value = <Text style={{ color: 'yellow', fontWeight: '800' }}>{rmr14}</Text></Text>
+                        {rmr14 === null ? <Text style={{ color: 'red' }}>Out of bound. Please read the guidelines.</Text> : ''}
                     </View>
                 </View>
             </ScrollView>

@@ -54,17 +54,6 @@ export function RMR89Screen() {
                     </Text>
                     <Divider />
                     <View style={styles.parameterSection}>
-                        <View style={styles.formContainer}>
-                            <Text>Project Name:</Text>
-                            <TextInput
-                                style={styles.inputPrjName}
-                                onChangeText={onChangePrjName}
-                                value={prjname}
-                            />
-                        </View>
-                    </View>
-                    <Divider />
-                    <View style={styles.parameterSection}>
                         <Collapse>
                             <CollapseHeader style={styles.collapseHeader}>
                                 <Text style={{ color: isDarkMode ? Colors.darker : Colors.lighter }}>Strength of intact rock (<Text style={{ fontWeight: '800' }}>R1</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
