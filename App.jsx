@@ -47,10 +47,9 @@ function App() {
                     },
                     tabBarActiveTintColor: 'tomato',
                     tabBarInactiveTintColor: 'gray',
-                    headerShown: false,
                 })}
             >
-                <Tab.Screen name="Home" component={HomeStackScreen} />
+                <Tab.Screen name="Home" component={HomeStackScreen} options={{headerShown: false}} />
                 <Tab.Screen name="Analysis" component={AnalysisScreen} />
                 <Tab.Screen name="Guidelines" component={GuideScreen} />
             </Tab.Navigator>
