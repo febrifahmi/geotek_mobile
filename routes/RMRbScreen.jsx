@@ -55,10 +55,10 @@ export function RMRbScreen() {
                     <View style={styles.parameterSection}>
                         <Collapse>
                             <CollapseHeader style={styles.collapseHeader}>
-                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.lighter }}>RMR(1) UCS of intact rock (<Text style={{ fontWeight: '800' }}>RMR(1)</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
+                                <Text style={{ color: isDarkMode ? Colors.lighter : Colors.lighter }}>RMR(1) UCS of intact rock (<Text style={{ fontWeight: '800' }}>RMR(1)</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
                             </CollapseHeader>
                             <CollapseBody style={styles.collapseBody}>
-                                <Text>Calculate Parameter R1 (Uniaxial Compressive Strength of intact rock). Input one value: 'strength' of intact rock material (UCS of intact rock (in kg/cm2, for consistency it will be converted automatically by this app to MPa)).</Text>
+                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.darker }}>Calculate Parameter R1 (Uniaxial Compressive Strength of intact rock). Input one value: 'strength' of intact rock material (UCS of intact rock (in kg/cm2, for consistency it will be converted automatically by this app to MPa)).</Text>
                             </CollapseBody>
                         </Collapse>
                         <View style={styles.formContainer}>
@@ -77,10 +77,10 @@ export function RMRbScreen() {
                     <View style={styles.parameterSection}>
                         <Collapse>
                             <CollapseHeader style={styles.collapseHeader}>
-                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.lighter }}>RQD and spacing of joints (<Text style={{ fontWeight: '800' }}>R(2+3)</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
+                                <Text style={{ color: isDarkMode ? Colors.lighter : Colors.lighter }}>RQD and spacing of joints (<Text style={{ fontWeight: '800' }}>R(2+3)</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
                             </CollapseHeader>
                             <CollapseBody style={styles.collapseBody}>
-                                <Text>Calculate Parameter R(2+3) (RQD and spacing of joints). Input one value: number of 'joints' per meter.</Text>
+                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.darker }}>Calculate Parameter R(2+3) (RQD and spacing of joints). Input one value: number of 'joints' per meter.</Text>
                             </CollapseBody>
                         </Collapse>
                         <View style={styles.formContainer}>
@@ -98,10 +98,10 @@ export function RMRbScreen() {
                     <View style={styles.parameterSection}>
                         <Collapse>
                             <CollapseHeader style={styles.collapseHeader}>
-                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.lighter }}>Classification of discontinuity condition (<Text style={{ fontWeight: '800' }}>R4</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
+                                <Text style={{ color: isDarkMode ? Colors.lighter : Colors.lighter }}>Classification of discontinuity condition (<Text style={{ fontWeight: '800' }}>R4</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
                             </CollapseHeader>
                             <CollapseBody style={styles.collapseBody}>
-                                <Text>Calculate Parameter R4 (classification of discontinuity condition). Input four values: 'dl' discontinuity length (in m), 'sep' separation (in mm), 'rough' roughness ('very_rough', 'rough', 'slightly_rough', 'smooth', 'slickensided'), 'gouge' infilling ('None', 'hl&lt;5',hl&gt;5, 'sl&lt;5', 'sl&gt;5'), 'weather' weathering ('unweathered'; 'slightly_weathered'; 'moderately_weathered'; 'highly_weathered'; 'decomposed').</Text>
+                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.darker }}>Calculate Parameter R4 (classification of discontinuity condition). Input four values: 'dl' discontinuity length (in m), 'sep' separation (in mm), 'rough' roughness ('very_rough', 'rough', 'slightly_rough', 'smooth', 'slickensided'), 'gouge' infilling ('None', 'hl&lt;5',hl&gt;5, 'sl&lt;5', 'sl&gt;5'), 'weather' weathering ('unweathered'; 'slightly_weathered'; 'moderately_weathered'; 'highly_weathered'; 'decomposed').</Text>
                             </CollapseBody>
                         </Collapse>
                         <View style={styles.formContainer}>
@@ -140,10 +140,10 @@ export function RMRbScreen() {
                     <View style={styles.parameterSection}>
                         <Collapse>
                             <CollapseHeader style={styles.collapseHeader}>
-                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.lighter }}>Groundwater condition (<Text style={{ fontWeight: '800' }}>R5</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
+                                <Text style={{ color: isDarkMode ? Colors.lighter : Colors.lighter }}>Groundwater condition (<Text style={{ fontWeight: '800' }}>R5</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
                             </CollapseHeader>
                             <CollapseBody style={styles.collapseBody}>
-                                <Text>Calculate Parameter R5 (groundwater condition). Input three values: 'inflow' inflow per 10 m tunnel length (i/m) (None or number), 'wpress' joint water pressure / major principal, 'cond' general conditions ('dry', 'damp', 'wet', 'dripping', or 'flowing').</Text>
+                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.darker }}>Calculate Parameter R5 (groundwater condition). Input three values: 'inflow' inflow per 10 m tunnel length (i/m) (None or number), 'wpress' joint water pressure / major principal, 'cond' general conditions ('dry', 'damp', 'wet', 'dripping', or 'flowing').</Text>
                             </CollapseBody>
                         </Collapse>
                         <View style={styles.formContainer}>
@@ -172,10 +172,10 @@ export function RMRbScreen() {
                     <View style={styles.parameterSection}>
                         <Collapse>
                             <CollapseHeader style={styles.collapseHeader}>
-                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.lighter }}>Rock Mass Rating basic (<Text style={{ fontWeight: '800' }}>RMRb</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
+                                <Text style={{ color: isDarkMode ? Colors.lighter : Colors.lighter }}>Rock Mass Rating basic (<Text style={{ fontWeight: '800' }}>RMRb</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
                             </CollapseHeader>
                             <CollapseBody style={styles.collapseBody}>
-                                <Text>Calculate Rock Mass Rating basic (RMRb) as proposed in Geocontrol (2012) from four parameters above: 'r1' strength rating, 'r2+3' RQD and spacing of joints, 'r4' condition of discontinuity rating, and 'r5' groundwater rating.</Text>
+                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.darker }}>Calculate Rock Mass Rating basic (RMRb) as proposed in Geocontrol (2012) from four parameters above: 'r1' strength rating, 'r2+3' RQD and spacing of joints, 'r4' condition of discontinuity rating, and 'r5' groundwater rating.</Text>
                             </CollapseBody>
                         </Collapse>
                         <Button color='success' radius='md' title='Calculate RMRb' onPress={() => onChangeRMRb(RMRb(rmrucs,rmrrqdspacing,r4,r5))}></Button>

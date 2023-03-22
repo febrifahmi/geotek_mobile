@@ -68,10 +68,10 @@ export function RMRhlwScreen() {
                     <View style={styles.parameterSection}>
                         <Collapse>
                             <CollapseHeader style={styles.collapseHeader}>
-                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.lighter }}>Adjusted R1ucs (<Text style={{ fontWeight: '800' }}>R1 UCS</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
+                                <Text style={{ color: isDarkMode ? Colors.lighter : Colors.lighter }}>Adjusted R1ucs (<Text style={{ fontWeight: '800' }}>R1 UCS</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
                             </CollapseHeader>
                             <CollapseBody style={styles.collapseBody}>
-                                <Text>Adjusted R1 (adjusted uniaxial compressive rock mass strength incorporating the influence of ground water weakening and temperature environment on deep located excavation project). Input one value: 'strength' uniaxial compressive strength test result of intact rock material/rock mass strength (in MPa).</Text>
+                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.darker }}>Adjusted R1 (adjusted uniaxial compressive rock mass strength incorporating the influence of ground water weakening and temperature environment on deep located excavation project). Input one value: 'strength' uniaxial compressive strength test result of intact rock material/rock mass strength (in MPa).</Text>
                             </CollapseBody>
                         </Collapse>
                         <View style={styles.formContainer}>
@@ -90,10 +90,10 @@ export function RMRhlwScreen() {
                     <View style={styles.parameterSection}>
                         <Collapse>
                             <CollapseHeader style={styles.collapseHeader}>
-                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.lighter }}>Adjusted R2 (<Text style={{ fontWeight: '800' }}>R2adj</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
+                                <Text style={{ color: isDarkMode ? Colors.lighter : Colors.lighter }}>Adjusted R2 (<Text style={{ fontWeight: '800' }}>R2adj</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
                             </CollapseHeader>
                             <CollapseBody style={styles.collapseBody}>
-                                <Text>Adjusted R2 - adjustment of rock quality designation rating. Input one value: 'rqd' RQD rating/value (0-100).</Text>
+                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.darker }}>Adjusted R2 - adjustment of rock quality designation rating. Input one value: 'rqd' RQD rating/value (0-100).</Text>
                             </CollapseBody>
                         </Collapse>
                         <View style={styles.formContainer}>
@@ -112,10 +112,10 @@ export function RMRhlwScreen() {
                     <View style={styles.parameterSection}>
                         <Collapse>
                             <CollapseHeader style={styles.collapseHeader}>
-                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.lighter }}>Adjusted R3 (<Text style={{ fontWeight: '800' }}>R3adj</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
+                                <Text style={{ color: isDarkMode ? Colors.lighter : Colors.lighter }}>Adjusted R3 (<Text style={{ fontWeight: '800' }}>R3adj</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
                             </CollapseHeader>
                             <CollapseBody style={styles.collapseBody}>
-                                <Text>Adjusted R3 - adjustment of rating value based on joint spacing. Input one value: 'spacing' space of discontinuity (in m).</Text>
+                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.darker }}>Adjusted R3 - adjustment of rating value based on joint spacing. Input one value: 'spacing' space of discontinuity (in m).</Text>
                             </CollapseBody>
                         </Collapse>
                         <View style={styles.formContainer}>
@@ -134,10 +134,10 @@ export function RMRhlwScreen() {
                     <View style={styles.parameterSection}>
                         <Collapse>
                             <CollapseHeader style={styles.collapseHeader}>
-                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.lighter }}>Classification of discontinuity condition (<Text style={{ fontWeight: '800' }}>R4</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
+                                <Text style={{ color: isDarkMode ? Colors.lighter : Colors.lighter }}>Classification of discontinuity condition (<Text style={{ fontWeight: '800' }}>R4</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
                             </CollapseHeader>
                             <CollapseBody style={styles.collapseBody}>
-                                <Text>Calculate Parameter R4 (classification of discontinuity condition). Input four values: 'dl' discontinuity length (in m), 'sep' separation (in mm), 'rough' roughness ('very_rough', 'rough', 'slightly_rough', 'smooth', 'slickensided'), 'gouge' infilling ('None', 'hl&lt;5',hl&gt;5, 'sl&lt;5', 'sl&gt;5'), 'weather' weathering ('unweathered'; 'slightly_weathered'; 'moderately_weathered'; 'highly_weathered'; 'decomposed').</Text>
+                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.darker }}>Calculate Parameter R4 (classification of discontinuity condition). Input four values: 'dl' discontinuity length (in m), 'sep' separation (in mm), 'rough' roughness ('very_rough', 'rough', 'slightly_rough', 'smooth', 'slickensided'), 'gouge' infilling ('None', 'hl&lt;5',hl&gt;5, 'sl&lt;5', 'sl&gt;5'), 'weather' weathering ('unweathered'; 'slightly_weathered'; 'moderately_weathered'; 'highly_weathered'; 'decomposed').</Text>
                             </CollapseBody>
                         </Collapse>
                         <View style={styles.formContainer}>
@@ -176,10 +176,10 @@ export function RMRhlwScreen() {
                     <View style={styles.parameterSection}>
                         <Collapse>
                             <CollapseHeader style={styles.collapseHeader}>
-                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.lighter }}>Groundwater condition (<Text style={{ fontWeight: '800' }}>R5</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
+                                <Text style={{ color: isDarkMode ? Colors.lighter : Colors.lighter }}>Groundwater condition (<Text style={{ fontWeight: '800' }}>R5</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
                             </CollapseHeader>
                             <CollapseBody style={styles.collapseBody}>
-                                <Text>Calculate Parameter R5 (groundwater condition). Input three values: 'inflow' inflow per 10 m tunnel length (i/m) (None or number), 'wpress' joint water pressure / major principal, 'cond' general conditions ('dry', 'damp', 'wet', 'dripping', or 'flowing').</Text>
+                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.darker }}>Calculate Parameter R5 (groundwater condition). Input three values: 'inflow' inflow per 10 m tunnel length (i/m) (None or number), 'wpress' joint water pressure / major principal, 'cond' general conditions ('dry', 'damp', 'wet', 'dripping', or 'flowing').</Text>
                             </CollapseBody>
                         </Collapse>
                         <View style={styles.formContainer}>
@@ -208,10 +208,10 @@ export function RMRhlwScreen() {
                     <View style={styles.parameterSection}>
                         <Collapse>
                             <CollapseHeader style={styles.collapseHeader}>
-                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.lighter }}>Tunnel/foundation/slope fav (<Text style={{ fontWeight: '800' }}>R6</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
+                                <Text style={{ color: isDarkMode ? Colors.lighter : Colors.lighter }}>Tunnel/foundation/slope fav (<Text style={{ fontWeight: '800' }}>R6</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
                             </CollapseHeader>
                             <CollapseBody style={styles.collapseBody}>
-                                <Text>Adjustment rating for tunnel, foundation and slope based of favorability. Input two values: 'cat' category (tunnel, foundation, slope) (type String), 'favorability' favorability option ('vfav': very favorable; 'fav': favorable; 'fair'; 'unfav': unfavorable; 'vunfav': very unfavorable)</Text>
+                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.darker }}>Adjustment rating for tunnel, foundation and slope based of favorability. Input two values: 'cat' category (tunnel, foundation, slope) (type String), 'favorability' favorability option ('vfav': very favorable; 'fav': favorable; 'fair'; 'unfav': unfavorable; 'vunfav': very unfavorable)</Text>
                             </CollapseBody>
                         </Collapse>
                         <View style={styles.formContainer}>
@@ -235,10 +235,10 @@ export function RMRhlwScreen() {
                     <View style={styles.parameterSection}>
                         <Collapse>
                             <CollapseHeader style={styles.collapseHeader}>
-                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.lighter }}>Geostress correction (<Text style={{ fontWeight: '800' }}>R7</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
+                                <Text style={{ color: isDarkMode ? Colors.lighter : Colors.lighter }}>Geostress correction (<Text style={{ fontWeight: '800' }}>R7</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
                             </CollapseHeader>
                             <CollapseBody style={styles.collapseBody}>
-                                <Text>Geostress correction/strength-stress ratio index/in-situ stress modification index (R7) as proposed in Tong et.al (2022) (a ratio to measure the risk of rock bursts). Input two values: 'ri' score of Ri based on rock burst grade, 'per_i' percentage of different rock burst grade. I (no rock burst): Ri = 0, II (slight rock burst): Ri = -4, III (moderate rock burst): Ri = -8, IV (severe rock burst): Ri = -12.</Text>
+                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.darker }}>Geostress correction/strength-stress ratio index/in-situ stress modification index (R7) as proposed in Tong et.al (2022) (a ratio to measure the risk of rock bursts). Input two values: 'ri' score of Ri based on rock burst grade, 'per_i' percentage of different rock burst grade. I (no rock burst): Ri = 0, II (slight rock burst): Ri = -4, III (moderate rock burst): Ri = -8, IV (severe rock burst): Ri = -12.</Text>
                             </CollapseBody>
                         </Collapse>
                         <View style={styles.formContainer}>
@@ -262,10 +262,10 @@ export function RMRhlwScreen() {
                     <View style={styles.parameterSection}>
                         <Collapse>
                             <CollapseHeader style={styles.collapseHeader}>
-                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.lighter }}>Rock mass permeability index (<Text style={{ fontWeight: '800' }}>R8</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
+                                <Text style={{ color: isDarkMode ? Colors.lighter : Colors.lighter }}>Rock mass permeability index (<Text style={{ fontWeight: '800' }}>R8</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
                             </CollapseHeader>
                             <CollapseBody style={styles.collapseBody}>
-                                <Text>Rock Mass Permeability Index as main factor influence the water seepage in rocks material. Input one value: 'perm_co' coefficient of permeability value and it should within the range &lt;=10^-9 m/s. If permeability coefficient value == &lt;=10^-9 m/s == 1, then R8 = -12 x (1-1) = 0. Otherwise, when permeability coefficient value == &lt;=10^-9 m/s == 0, R8 is -12. The coefficient is between 0 and 1.</Text>
+                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.darker }}>Rock Mass Permeability Index as main factor influence the water seepage in rocks material. Input one value: 'perm_co' coefficient of permeability value and it should within the range &lt;=10^-9 m/s. If permeability coefficient value == &lt;=10^-9 m/s == 1, then R8 = -12 x (1-1) = 0. Otherwise, when permeability coefficient value == &lt;=10^-9 m/s == 0, R8 is -12. The coefficient is between 0 and 1.</Text>
                             </CollapseBody>
                         </Collapse>
                         <View style={styles.formContainer}>
@@ -284,10 +284,10 @@ export function RMRhlwScreen() {
                     <View style={styles.parameterSection}>
                         <Collapse>
                             <CollapseHeader style={styles.collapseHeader}>
-                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.lighter }}>Groundwater chemistry index (<Text style={{ fontWeight: '800' }}>R9</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
+                                <Text style={{ color: isDarkMode ? Colors.lighter : Colors.lighter }}>Groundwater chemistry index (<Text style={{ fontWeight: '800' }}>R9</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
                             </CollapseHeader>
                             <CollapseBody style={styles.collapseBody}>
-                                <Text>The groundwater chemistry index as proposed by Tong et.al (2022). Input three values: 'pH' pH (acidity), 'tds' total dissolved solids (g/L), 'cl' non/negatively charged chlorine (g/L).</Text>
+                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.darker }}>The groundwater chemistry index as proposed by Tong et.al (2022). Input three values: 'pH' pH (acidity), 'tds' total dissolved solids (g/L), 'cl' non/negatively charged chlorine (g/L).</Text>
                             </CollapseBody>
                         </Collapse>
                         <View style={styles.formContainer}>
@@ -316,10 +316,10 @@ export function RMRhlwScreen() {
                     <View style={styles.parameterSection}>
                         <Collapse>
                             <CollapseHeader style={styles.collapseHeader}>
-                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.lighter }}>Rock Mass Rating HLW (<Text style={{ fontWeight: '800' }}>RMR HLW</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
+                                <Text style={{ color: isDarkMode ? Colors.lighter : Colors.lighter }}>Rock Mass Rating HLW (<Text style={{ fontWeight: '800' }}>RMR HLW</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
                             </CollapseHeader>
                             <CollapseBody style={styles.collapseBody}>
-                                <Text>Calculate Rock Mass Rating High Level Radioactive Waste Disposal (RMR HLW) as proposed in Tong et.al (2022) from nine parameters above: 'R1adj', 'R2adj', 'R3adj', R4, R5, R6, R7, R8, dan R9.</Text>
+                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.darker }}>Calculate Rock Mass Rating High Level Radioactive Waste Disposal (RMR HLW) as proposed in Tong et.al (2022) from nine parameters above: 'R1adj', 'R2adj', 'R3adj', R4, R5, R6, R7, R8, dan R9.</Text>
                             </CollapseBody>
                         </Collapse>
                         <Button color='success' radius='md' title='Calculate RMR HLW' onPress={() => onChangeRMRhlw(RMRhlw(r1adj,r2adj,r3adj,r4,r5,r6,r7,r8,r9))}></Button>

@@ -47,10 +47,10 @@ export function RMRSenSadagahScreen() {
                     <View style={styles.parameterSection}>
                         <Collapse>
                             <CollapseHeader style={styles.collapseHeader}>
-                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.lighter }}>RMR2002 point loads (<Text style={{ fontWeight: '800' }}>RMRpls</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
+                                <Text style={{ color: isDarkMode ? Colors.lighter : Colors.lighter }}>RMR2002 point loads (<Text style={{ fontWeight: '800' }}>RMRpls</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
                             </CollapseHeader>
                             <CollapseBody style={styles.collapseBody}>
-                                <Text>Calculate RMR2002 based on point loads strength. Input five values: 'l' lambda or average joint spacing or average intact length (in m), 'strength' point load strength of intact rock material, 'G' groundwater condition, 'rj' conditions of most unfavorable joints, 'rd' joint orientation.</Text>
+                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.darker }}>Calculate RMR2002 based on point loads strength. Input five values: 'l' lambda or average joint spacing or average intact length (in m), 'strength' point load strength of intact rock material, 'G' groundwater condition, 'rj' conditions of most unfavorable joints, 'rd' joint orientation.</Text>
                             </CollapseBody>
                         </Collapse>
                         <View style={styles.formContainer}>
@@ -89,10 +89,10 @@ export function RMRSenSadagahScreen() {
                     <View style={styles.parameterSection}>
                         <Collapse>
                             <CollapseHeader style={styles.collapseHeader}>
-                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.lighter }}>RMR2002 UCS (<Text style={{ fontWeight: '800' }}>RMRucs</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
+                                <Text style={{ color: isDarkMode ? Colors.lighter : Colors.lighter }}>RMR2002 UCS (<Text style={{ fontWeight: '800' }}>RMRucs</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
                             </CollapseHeader>
                             <CollapseBody style={styles.collapseBody}>
-                                <Text>Calculate RMR2002 based on UCS strength. Input five values: 'l' lambda or average joint spacing or average intact length (in m), 'strength' UCS strength of intact rock material, 'G' groundwater condition, 'rj' conditions of most unfavorable joints, 'rd' joint orientation.</Text>
+                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.darker }}>Calculate RMR2002 based on UCS strength. Input five values: 'l' lambda or average joint spacing or average intact length (in m), 'strength' UCS strength of intact rock material, 'G' groundwater condition, 'rj' conditions of most unfavorable joints, 'rd' joint orientation.</Text>
                             </CollapseBody>
                         </Collapse>
                         <View style={styles.formContainer}>

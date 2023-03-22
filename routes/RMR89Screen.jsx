@@ -56,10 +56,10 @@ export function RMR89Screen() {
                     <View style={styles.parameterSection}>
                         <Collapse>
                             <CollapseHeader style={styles.collapseHeader}>
-                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.lighter }}>Strength of intact rock (<Text style={{ fontWeight: '800' }}>R1</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
+                                <Text style={{ color: isDarkMode ? Colors.lighter : Colors.lighter }}>Strength of intact rock (<Text style={{ fontWeight: '800' }}>R1</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
                             </CollapseHeader>
                             <CollapseBody style={styles.collapseBody}>
-                                <Text>Calculate Parameter R1 (Strength of intact rock material rating). Input two values: selected index (idx) either 'pls' for point loads strength or 'ucs' for uniaxial compressive strength, and the 'strength' value itself.</Text>
+                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.darker }}>Calculate Parameter R1 (Strength of intact rock material rating). Input two values: selected index (idx) either 'pls' for point loads strength or 'ucs' for uniaxial compressive strength, and the 'strength' value itself.</Text>
                             </CollapseBody>
                         </Collapse>
                         <View style={styles.formContainer}>
@@ -83,10 +83,10 @@ export function RMR89Screen() {
                     <View style={styles.parameterSection}>
                         <Collapse>
                             <CollapseHeader style={styles.collapseHeader}>
-                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.lighter }}>Drill core RQD rating (<Text style={{ fontWeight: '800' }}>R2</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
+                                <Text style={{ color: isDarkMode ? Colors.lighter : Colors.lighter }}>Drill core RQD rating (<Text style={{ fontWeight: '800' }}>R2</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
                             </CollapseHeader>
                             <CollapseBody style={styles.collapseBody}>
-                                <Text>Calculate Parameter R2 (drill core RQD rating). Input one value: drillcoreRQD drill core quality or rock quality designation (in percent).</Text>
+                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.darker }}>Calculate Parameter R2 (drill core RQD rating). Input one value: drillcoreRQD drill core quality or rock quality designation (in percent).</Text>
                             </CollapseBody>
                         </Collapse>
                         <View style={styles.formContainer}>
@@ -105,10 +105,10 @@ export function RMR89Screen() {
                     <View style={styles.parameterSection}>
                         <Collapse>
                             <CollapseHeader style={styles.collapseHeader}>
-                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.lighter }}>Space of discontinuity rating (<Text style={{ fontWeight: '800' }}>R3</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
+                                <Text style={{ color: isDarkMode ? Colors.lighter : Colors.lighter }}>Space of discontinuity rating (<Text style={{ fontWeight: '800' }}>R3</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
                             </CollapseHeader>
                             <CollapseBody style={styles.collapseBody}>
-                                <Text>Calculate Parameter R3 (space of discontinuity rating). Input one value: 'spacing'/value of rock spacing (in m, float/decimal).</Text>
+                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.darker }}>Calculate Parameter R3 (space of discontinuity rating). Input one value: 'spacing'/value of rock spacing (in m, float/decimal).</Text>
                             </CollapseBody>
                         </Collapse>
                         <View style={styles.formContainer}>
@@ -127,10 +127,10 @@ export function RMR89Screen() {
                     <View style={styles.parameterSection}>
                         <Collapse>
                             <CollapseHeader style={styles.collapseHeader}>
-                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.lighter }}>Classification of discontinuity condition (<Text style={{ fontWeight: '800' }}>R4</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
+                                <Text style={{ color: isDarkMode ? Colors.lighter : Colors.lighter }}>Classification of discontinuity condition (<Text style={{ fontWeight: '800' }}>R4</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
                             </CollapseHeader>
                             <CollapseBody style={styles.collapseBody}>
-                                <Text>Calculate Parameter R4 (classification of discontinuity condition). Input four values: 'dl' discontinuity length (in m), 'sep' separation (in mm), 'rough' roughness ('very_rough', 'rough', 'slightly_rough', 'smooth', 'slickensided'), 'gouge' infilling ('None', 'hl&lt;5',hl&gt;5, 'sl&lt;5', 'sl&gt;5'), 'weather' weathering ('unweathered'; 'slightly_weathered'; 'moderately_weathered'; 'highly_weathered'; 'decomposed').</Text>
+                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.darker }}>Calculate Parameter R4 (classification of discontinuity condition). Input four values: 'dl' discontinuity length (in m), 'sep' separation (in mm), 'rough' roughness ('very_rough', 'rough', 'slightly_rough', 'smooth', 'slickensided'), 'gouge' infilling ('None', 'hl&lt;5',hl&gt;5, 'sl&lt;5', 'sl&gt;5'), 'weather' weathering ('unweathered'; 'slightly_weathered'; 'moderately_weathered'; 'highly_weathered'; 'decomposed').</Text>
                             </CollapseBody>
                         </Collapse>
                         <View style={styles.formContainer}>
@@ -169,10 +169,10 @@ export function RMR89Screen() {
                     <View style={styles.parameterSection}>
                         <Collapse>
                             <CollapseHeader style={styles.collapseHeader}>
-                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.lighter }}>Groundwater condition (<Text style={{ fontWeight: '800' }}>R5</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
+                                <Text style={{ color: isDarkMode ? Colors.lighter : Colors.lighter }}>Groundwater condition (<Text style={{ fontWeight: '800' }}>R5</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
                             </CollapseHeader>
                             <CollapseBody style={styles.collapseBody}>
-                                <Text>Calculate Parameter R5 (groundwater condition). Input three values: 'inflow' inflow per 10 m tunnel length (i/m) (None or number), 'wpress' joint water pressure / major principal, 'cond' general conditions ('dry', 'damp', 'wet', 'dripping', or 'flowing').</Text>
+                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.darker }}>Calculate Parameter R5 (groundwater condition). Input three values: 'inflow' inflow per 10 m tunnel length (i/m) (None or number), 'wpress' joint water pressure / major principal, 'cond' general conditions ('dry', 'damp', 'wet', 'dripping', or 'flowing').</Text>
                             </CollapseBody>
                         </Collapse>
                         <View style={styles.formContainer}>
@@ -201,10 +201,10 @@ export function RMR89Screen() {
                     <View style={styles.parameterSection}>
                         <Collapse>
                             <CollapseHeader style={styles.collapseHeader}>
-                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.lighter }}>Rock Mass Rating 89 (<Text style={{ fontWeight: '800' }}>RMR89</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
+                                <Text style={{ color: isDarkMode ? Colors.lighter : Colors.lighter }}>Rock Mass Rating 89 (<Text style={{ fontWeight: '800' }}>RMR89</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
                             </CollapseHeader>
                             <CollapseBody style={styles.collapseBody}>
-                                <Text>Calculate Rock Mass Rating (RMR) 89 as proposed by Bieniawski (1989) from five parameters above: 'r1' strength rating, 'r2' Rock Quality Designation (RQD) rating, 'r3' space of discontinuity rating, 'r4' condition of discontinuity rating, and 'r5' groundwater rating.</Text>
+                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.darker }}>Calculate Rock Mass Rating (RMR) 89 as proposed by Bieniawski (1989) from five parameters above: 'r1' strength rating, 'r2' Rock Quality Designation (RQD) rating, 'r3' space of discontinuity rating, 'r4' condition of discontinuity rating, and 'r5' groundwater rating.</Text>
                             </CollapseBody>
                         </Collapse>
                         <Button color='success' radius='md' title='Calculate RMR89' onPress={() => onChangeRMR89(CalcRMR89(r1,r2,r3,r4,r5))}></Button>

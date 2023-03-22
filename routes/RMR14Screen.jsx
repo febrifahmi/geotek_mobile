@@ -50,10 +50,10 @@ export function RMR14Screen() {
                     <View style={styles.parameterSection}>
                         <Collapse>
                             <CollapseHeader style={styles.collapseHeader}>
-                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.lighter }}>F0 adjustment factor (<Text style={{ fontWeight: '800' }}>F0</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
+                                <Text style={{ color: isDarkMode ? Colors.lighter : Colors.lighter }}>F0 adjustment factor (<Text style={{ fontWeight: '800' }}>F0</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
                             </CollapseHeader>
                             <CollapseBody style={styles.collapseBody}>
-                                <Text>F0 is adjustment factor for the orientation of tunnel axis with regard to main set of discontinuities. Input two values: 'strike_orientation' orientation of strike to tunnel axis ('dwd' or drive with dip, 'dad' or drive against dip, 'parallel', 'irrespective'); and 'dip_angle' dip angle (dwd, dad, parallel: 45-90 or 20-45, irrespective: 0-20).</Text>
+                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.darker }}>F0 is adjustment factor for the orientation of tunnel axis with regard to main set of discontinuities. Input two values: 'strike_orientation' orientation of strike to tunnel axis ('dwd' or drive with dip, 'dad' or drive against dip, 'parallel', 'irrespective'); and 'dip_angle' dip angle (dwd, dad, parallel: 45-90 or 20-45, irrespective: 0-20).</Text>
                             </CollapseBody>
                         </Collapse>
                         <View style={styles.formContainer}>
@@ -77,10 +77,10 @@ export function RMR14Screen() {
                     <View style={styles.parameterSection}>
                         <Collapse>
                             <CollapseHeader style={styles.collapseHeader}>
-                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.lighter }}>Fexcavation adjustment factor (<Text style={{ fontWeight: '800' }}>Fexc</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
+                                <Text style={{ color: isDarkMode ? Colors.lighter : Colors.lighter }}>Fexcavation adjustment factor (<Text style={{ fontWeight: '800' }}>Fexc</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
                             </CollapseHeader>
                             <CollapseBody style={styles.collapseBody}>
-                                <Text>Adjustment factor for RMR considering excavation method (Tunneling Bore Method/TBM or Drill and Blast/D+B). Input one value: 'rmrb' RMR basic (before adjustment).</Text>
+                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.darker }}>Adjustment factor for RMR considering excavation method (Tunneling Bore Method/TBM or Drill and Blast/D+B). Input one value: 'rmrb' RMR basic (before adjustment).</Text>
                             </CollapseBody>
                         </Collapse>
                         <View style={styles.formContainer}>
@@ -99,10 +99,10 @@ export function RMR14Screen() {
                     <View style={styles.parameterSection}>
                         <Collapse>
                             <CollapseHeader style={styles.collapseHeader}>
-                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.lighter }}>"Índice de Comportamiento Elástico" (<Text style={{ fontWeight: '800' }}>ICE</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
+                                <Text style={{ color: isDarkMode ? Colors.lighter : Colors.lighter }}>"Índice de Comportamiento Elástico" (<Text style={{ fontWeight: '800' }}>ICE</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
                             </CollapseHeader>
                             <CollapseBody style={styles.collapseBody}>
-                                <Text>"Índice de Comportamiento Elástico" (ICE) as proposed by Bieniawski and Celada (2011). Input five values: 'rmrb' RMR basic (before adjustment), 'ucs' uniaxial compressive strength of intact rock (in MPa), 'k0' ratio of the horizontal to vertical virgin stress, 'H' tunnel depth (in meter), and 'F' shape coefficient (circular tunnel d = 6 m then F 1.3 ; circular tunnel d = 10 m then F 1.0 ; coventional tunnel 14 m wide then F 0.75 ; caverns 25 m wide x 60 m high then F 0.55).</Text>
+                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.darker }}>"Índice de Comportamiento Elástico" (ICE) as proposed by Bieniawski and Celada (2011). Input five values: 'rmrb' RMR basic (before adjustment), 'ucs' uniaxial compressive strength of intact rock (in MPa), 'k0' ratio of the horizontal to vertical virgin stress, 'H' tunnel depth (in meter), and 'F' shape coefficient (circular tunnel d = 6 m then F 1.3 ; circular tunnel d = 10 m then F 1.0 ; coventional tunnel 14 m wide then F 0.75 ; caverns 25 m wide x 60 m high then F 0.55).</Text>
                             </CollapseBody>
                         </Collapse>
                         <View style={styles.formContainer}>
@@ -141,10 +141,10 @@ export function RMR14Screen() {
                     <View style={styles.parameterSection}>
                         <Collapse>
                             <CollapseHeader style={styles.collapseHeader}>
-                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.lighter }}>Fstress-strain adjustment factor (<Text style={{ fontWeight: '800' }}>Fss</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
+                                <Text style={{ color: isDarkMode ? Colors.lighter : Colors.lighter }}>Fstress-strain adjustment factor (<Text style={{ fontWeight: '800' }}>Fss</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
                             </CollapseHeader>
                             <CollapseBody style={styles.collapseBody}>
-                                <Text>Adjustment factor of stress-strain based on "Índice de Comportamiento Elástico" (ICE) value. Input one value: 'ICE' value.</Text>
+                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.darker }}>Adjustment factor of stress-strain based on "Índice de Comportamiento Elástico" (ICE) value. Input one value: 'ICE' value.</Text>
                             </CollapseBody>
                         </Collapse>
                         <View style={styles.formContainer}>
@@ -159,10 +159,10 @@ export function RMR14Screen() {
                     <View style={styles.parameterSection}>
                         <Collapse>
                             <CollapseHeader style={styles.collapseHeader}>
-                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.lighter }}>RMRb adjustment (<Text style={{ fontWeight: '800' }}>RMRbAdj</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
+                                <Text style={{ color: isDarkMode ? Colors.lighter : Colors.lighter }}>RMRb adjustment (<Text style={{ fontWeight: '800' }}>RMRbAdj</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
                             </CollapseHeader>
                             <CollapseBody style={styles.collapseBody}>
-                                <Text>Adjustment of RMRb with F0 value. Input two values: 'rmrb' original RMRb value, 'f0' F0 value.</Text>
+                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.darker }}>Adjustment of RMRb with F0 value. Input two values: 'rmrb' original RMRb value, 'f0' F0 value.</Text>
                             </CollapseBody>
                         </Collapse>
                         <View style={styles.formContainer}>
@@ -178,10 +178,10 @@ export function RMR14Screen() {
                     <View style={styles.parameterSection}>
                         <Collapse>
                             <CollapseHeader style={styles.collapseHeader}>
-                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.lighter }}>Rock Mass Rating 14 (<Text style={{ fontWeight: '800' }}>RMR14</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
+                                <Text style={{ color: isDarkMode ? Colors.lighter : Colors.lighter }}>Rock Mass Rating 14 (<Text style={{ fontWeight: '800' }}>RMR14</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
                             </CollapseHeader>
                             <CollapseBody style={styles.collapseBody}>
-                                <Text>RMR14 as proposed by Celada etal (2014) - RMR with three adjusment factors applied. Input three values: 'rmrb_adj' RMRb adjustment factor for tunnel orientation, 'val_fe' Fexc adjustment factor for excavation, 'val_fs' Fss adjustment factor for stress strain.</Text>
+                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.darker }}>RMR14 as proposed by Celada etal (2014) - RMR with three adjusment factors applied. Input three values: 'rmrb_adj' RMRb adjustment factor for tunnel orientation, 'val_fe' Fexc adjustment factor for excavation, 'val_fs' Fss adjustment factor for stress strain.</Text>
                             </CollapseBody>
                         </Collapse>
                         <View style={styles.formContainer}>
