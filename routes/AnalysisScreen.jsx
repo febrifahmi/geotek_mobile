@@ -52,10 +52,10 @@ export function AnalysisScreen({ navigation }) {
                     <View style={styles.parameterSection}>
                         <Collapse>
                             <CollapseHeader style={styles.collapseHeader}>
-                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.lighter }}>Parallelism factor (<Text style={{ fontWeight: '800' }}>F1</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
+                                <Text style={{ color: isDarkMode ? Colors.lighter : Colors.lighter }}>Parallelism factor (<Text style={{ fontWeight: '800' }}>F1</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
                             </CollapseHeader>
                             <CollapseBody style={styles.collapseBody}>
-                                <Text>Correction factor F1 which depends on parallelism (denoted by "A") between discontinuity dip direction (alpha j) and slope dip (alpha s). Input three values: 'ftype' type of slope failure (P = planar, T = Toppling), 'dis_dd' discontinuity dip direction, 'slope_d' slope dip.</Text>
+                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.darker }}>Correction factor F1 which depends on parallelism (denoted by "A") between discontinuity dip direction (alpha j) and slope dip (alpha s). Input three values: 'ftype' type of slope failure (P = planar, T = Toppling), 'dis_dd' discontinuity dip direction, 'slope_d' slope dip.</Text>
                             </CollapseBody>
                         </Collapse>
                         <View style={styles.formContainer}>
@@ -84,10 +84,10 @@ export function AnalysisScreen({ navigation }) {
                     <View style={styles.parameterSection}>
                         <Collapse>
                             <CollapseHeader style={styles.collapseHeader}>
-                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.lighter }}>Probability of discontinuity shear strength (<Text style={{ fontWeight: '800' }}>F2</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
+                                <Text style={{ color: isDarkMode ? Colors.lighter : Colors.lighter }}>Probability of discontinuity shear strength (<Text style={{ fontWeight: '800' }}>F2</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
                             </CollapseHeader>
                             <CollapseBody style={styles.collapseBody}>
-                                <Text>Correction factor F2 related to the probability of discontinuity shear strength (B) (Romana, 1993), depends on the discontinuity dip. In case of failure type Planar: B = beta j ; in case of Toppling: B = 1.0. Input two values: 'ftype' type of slope failure (P = planar, T = Toppling), 'dis_dip' discontinuity dip angle (&lt;=90).</Text>
+                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.darker }}>Correction factor F2 related to the probability of discontinuity shear strength (B) (Romana, 1993), depends on the discontinuity dip. In case of failure type Planar: B = beta j ; in case of Toppling: B = 1.0. Input two values: 'ftype' type of slope failure (P = planar, T = Toppling), 'dis_dip' discontinuity dip angle (&lt;=90).</Text>
                             </CollapseBody>
                         </Collapse>
                         <View style={styles.formContainer}>
@@ -111,10 +111,10 @@ export function AnalysisScreen({ navigation }) {
                     <View style={styles.parameterSection}>
                         <Collapse>
                             <CollapseHeader style={styles.collapseHeader}>
-                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.lighter }}>Slope & discontinuity dip (<Text style={{ fontWeight: '800' }}>F3</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
+                                <Text style={{ color: isDarkMode ? Colors.lighter : Colors.lighter }}>Slope & discontinuity dip (<Text style={{ fontWeight: '800' }}>F3</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
                             </CollapseHeader>
                             <CollapseBody style={styles.collapseBody}>
-                                <Text>Correction factor F3 indicates relationship (C) between slope (beta s) discontinuity dips (beta j) that is probability of the discontinuity to outcrop on the slope face (Romana, 1993) for planar failure (Romana, 2015). Input three values: 'ftype' type of slope failure (P = planar, T = Toppling),'slope' slope angle,'ddips' discontinuity dips. C = slope - ddips should be lower than 90 degree, C = slope + ddips max is 180.</Text>
+                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.darker }}>Correction factor F3 indicates relationship (C) between slope (beta s) discontinuity dips (beta j) that is probability of the discontinuity to outcrop on the slope face (Romana, 1993) for planar failure (Romana, 2015). Input three values: 'ftype' type of slope failure (P = planar, T = Toppling),'slope' slope angle,'ddips' discontinuity dips. C = slope - ddips should be lower than 90 degree, C = slope + ddips max is 180.</Text>
                             </CollapseBody>
                         </Collapse>
                         <View style={styles.formContainer}>
@@ -143,10 +143,10 @@ export function AnalysisScreen({ navigation }) {
                     <View style={styles.parameterSection}>
                         <Collapse>
                             <CollapseHeader style={styles.collapseHeader}>
-                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.lighter }}>Excavation method (<Text style={{ fontWeight: '800' }}>F4</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
+                                <Text style={{ color: isDarkMode ? Colors.lighter : Colors.lighter }}>Excavation method (<Text style={{ fontWeight: '800' }}>F4</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
                             </CollapseHeader>
                             <CollapseBody style={styles.collapseBody}>
-                                <Text>Correction factor F4 considering the excavation method. Input one value: 'method' excavation methods option ("pre": Presplitting; "sb": Smooth blasting; "ns": Natural slope; "bm": Blasting or mechanical).</Text>
+                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.darker }}>Correction factor F4 considering the excavation method. Input one value: 'method' excavation methods option ("pre": Presplitting; "sb": Smooth blasting; "ns": Natural slope; "bm": Blasting or mechanical).</Text>
                             </CollapseBody>
                         </Collapse>
                         <View style={styles.formContainer}>
@@ -165,10 +165,10 @@ export function AnalysisScreen({ navigation }) {
                     <View style={styles.parameterSection}>
                         <Collapse>
                             <CollapseHeader style={styles.collapseHeader}>
-                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.lighter }}>Calculate SMR (Romana 1985,2015) (<Text style={{ fontWeight: '800' }}>SMR</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
+                                <Text style={{ color: isDarkMode ? Colors.lighter : Colors.lighter }}>Calculate SMR (Romana 1985,2015) (<Text style={{ fontWeight: '800' }}>SMR</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
                             </CollapseHeader>
                             <CollapseBody style={styles.collapseBody}>
-                                <Text>Slope Mass Rating (SMR) as proposed by Romana (1985, 2015). Input five values: 'rmrb', 'F1', 'F2', 'F3', and 'F4'.</Text>
+                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.darker }}>Slope Mass Rating (SMR) as proposed by Romana (1985, 2015). Input five values: 'rmrb', 'F1', 'F2', 'F3', and 'F4'.</Text>
                             </CollapseBody>
                         </Collapse>
                         <View style={styles.formContainer}>
