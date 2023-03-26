@@ -277,7 +277,7 @@ export function RMRhlwScreen() {
                             />
                             <SelectDropdown
                                 defaultButtonText='select favorability'
-                                data={['very favorable', 'favorable', 'fair', 'unfavorable', 'very unfavorable']}
+                                data={['vfav', 'fav', 'fair', 'unfav', 'vunfav']}
                                 onSelect={(selectedItem, index) => {
                                     // console.log(selectedItem, index)
                                     onChangeFav(selectedItem)
