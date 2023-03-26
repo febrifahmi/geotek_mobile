@@ -71,11 +71,34 @@ export function GuideScreen() {
                     <Text style={{backgroundColor:'darkgray', color: isDarkMode? Colors.darker: Colors.darker,paddingHorizontal: 8, paddingVertical: 4, marginVertical: 15}}>RMRb adjustment (<Text style={{ fontWeight: '800' }}>RMRbAdj</Text>)</Text>
                     <Text>Adjustment of RMRb with F0 value. Input two values: 'rmrb' original RMRb value, 'f0' F0 value.</Text>
                     <Divider />
+                    <Text style={{backgroundColor:'cyan', color: isDarkMode? Colors.darker: Colors.darker, paddingHorizontal: 8, paddingVertical: 4, marginVertical: 15}}>RMR2002 Sen-Bahaeldin (<Text style={{ fontWeight: '800' }}>RMR2002</Text>)</Text>
+                    <Text>Calculate RMR based on point loads strength and RMR based on Uniaxial Compressive Strength (UCS) as proposed by Sen-Bahaeldin (2002)</Text>
+                    <Divider />
+                    <Text style={{backgroundColor:'darkgray', color: isDarkMode? Colors.darker: Colors.darker,paddingHorizontal: 8, paddingVertical: 4, marginVertical: 15}}>RMR2002 point loads (<Text style={{ fontWeight: '800' }}>RMRpls</Text>)</Text>
+                    <Text>Calculate RMR2002 based on point loads strength. Input five values: 'l' lambda or average joint spacing or average intact length (in m), 'strength' point load strength of intact rock material, 'G' groundwater condition, 'rj' conditions of most unfavorable joints, 'rd' joint orientation.</Text>
+                    <Text style={{backgroundColor:'darkgray', color: isDarkMode? Colors.darker: Colors.darker,paddingHorizontal: 8, paddingVertical: 4, marginVertical: 15}}>RMR2002 UCS (<Text style={{ fontWeight: '800' }}>RMRucs</Text>)</Text>
+                    <Text>Calculate RMR2002 based on UCS strength. Input five values: 'l' lambda or average joint spacing or average intact length (in m), 'strength' UCS strength of intact rock material, 'G' groundwater condition, 'rj' conditions of most unfavorable joints, 'rd' joint orientation.</Text>
+                    <Divider style={{ marginTop: 30}} />
+                    <Text style={{ backgroundColor: 'brown', color: 'white', fontSize: 16, fontWeight: '800', paddingTop: 15, paddingBottom: 10, textAlign: 'center'}}>ANALYSIS TAB</Text>
+                    <Divider />
+                    <Text style={{backgroundColor:'pink', color: isDarkMode? Colors.darker: Colors.darker, paddingHorizontal: 8, paddingVertical: 4, marginVertical: 15}}>Slope Mass Rating (SMR) Classification (Romana, et.al, 1985, 2015) (<Text style={{ fontWeight: '800' }}>SMR</Text>)</Text>
+                    <Text>Calculate Slope Mass Rating (SMR) by calculating Paralellism factor, Probability of discontinuity shear strength, Slope and discontinuity dip, and Excavation method as proposed by Romana et.al (1985, 2015)</Text>
+                    <Divider />
+                    <Text style={{backgroundColor:'darkgray', color: isDarkMode? Colors.darker: Colors.darker,paddingHorizontal: 8, paddingVertical: 4, marginVertical: 15}}>Parallelism factor (<Text style={{ fontWeight: '800' }}>F1</Text>)</Text>
+                    <Text>Correction factor F1 which depends on parallelism (denoted by "A") between discontinuity dip direction (alpha j) and slope dip (alpha s). Input three values: 'ftype' type of slope failure (P = planar, T = Toppling), 'dis_dd' discontinuity dip direction, 'slope_d' slope dip.</Text>
+                    <Text style={{backgroundColor:'darkgray', color: isDarkMode? Colors.darker: Colors.darker,paddingHorizontal: 8, paddingVertical: 4, marginVertical: 15}}>Probability of discontinuity shear strength (<Text style={{ fontWeight: '800' }}>F2</Text>)</Text>
+                    <Text>Correction factor F2 related to the probability of discontinuity shear strength (B) (Romana, 1993), depends on the discontinuity dip. In case of failure type Planar: B = beta j ; in case of Toppling: B = 1.0. Input two values: 'ftype' type of slope failure (P = planar, T = Toppling), 'dis_dip' discontinuity dip angle (&lt;=90).</Text>
+                    <Text style={{backgroundColor:'darkgray', color: isDarkMode? Colors.darker: Colors.darker,paddingHorizontal: 8, paddingVertical: 4, marginVertical: 15}}>Slope & discontinuity dip (<Text style={{ fontWeight: '800' }}>F3</Text>)</Text>
+                    <Text>Correction factor F3 indicates relationship (C) between slope (beta s) discontinuity dips (beta j) that is probability of the discontinuity to outcrop on the slope face (Romana, 1993) for planar failure (Romana, 2015). Input three values: 'ftype' type of slope failure (P = planar, T = Toppling),'slope' slope angle,'ddips' discontinuity dips. C = slope - ddips should be lower than 90 degree, C = slope + ddips max is 180.</Text>
+                    <Text style={{backgroundColor:'darkgray', color: isDarkMode? Colors.darker: Colors.darker,paddingHorizontal: 8, paddingVertical: 4, marginVertical: 15}}>Excavation method (<Text style={{ fontWeight: '800' }}>F4</Text>)</Text>
+                    <Text>Correction factor F4 considering the excavation method. Input one value: 'method' excavation methods option ("pre": Presplitting; "sb": Smooth blasting; "ns": Natural slope; "bm": Blasting or mechanical).</Text>
+                    <Divider />
                     <Text style={{backgroundColor:'yellow', color: isDarkMode? Colors.darker: Colors.darker , paddingHorizontal: 8, paddingVertical: 4, marginVertical: 15, fontWeight:600}}>References:</Text>
                     <Text>[1] Bieniawski, Z.T. 1989. Engineering rock mass classifications. New York: Wiley.</Text>
                     <Text>[2] B. Celada, I. Tardáguila, P. Varona, A. Rodríguez, and Z. T. Bieniawski, “Innovating Tunnel Design by an Improved Experience-based RMR System.,” Proc. World Tunn. Congr. 2014 – Tunnels a better Life, vol. 3, pp. 1–9, 2014.</Text>
                     <Text>[3] Y. Tong, Y. Yue, Z. Huang, L. Zhu, Z. Li, and W. Zhang, “Modified RMR Rock Mass Classification System for Preliminary Selection of Potential Sites of High-Level Radioactive Waste Disposal Engineering,” Sustain., vol. 14, no. 23, pp. 1–17, 2022, doi: 10.3390/su142315596.</Text>
                     <Text>[4] Romana, M., Tomás, R., Serón, J.B. (2015). Slope Mass Rating (SMR) geomechanics classification: thirty years review. ISRM Congress 2015 Proceedings - International Symposium on Rock Mechanics, Quebec Canada, May 10 to 13 2015. ISBN: 978-1-926872-25-4, 10 pp.</Text>
+                    <Text>[5] Z. Şen and B. H. Bahaaeldin, “Modified rock mass classification system by continuous rating,” Eng. Geol., vol. 67, no. 3–4, pp. 269–280, 2003, doi: 10.1016/S0013-7952(02)00185-0.</Text>
                     <Divider />
                 </View>
             </ScrollView>

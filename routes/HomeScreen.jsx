@@ -140,7 +140,7 @@ export function HomeScreen() {
                     <BodySection title="Get RMRhlw (Tong et.al 2022)" screenname='RMRhlw'>
                         Get RMR for High-Level Radioactive Waste Disposal (HLW) by providing data such as: UCS of intact rock material, rock quality designation (RQD), space of discontinuity, etc.
                     </BodySection>
-                    <BodySection title="Get RMR2002 (Sen-Sadagah 2002)" screenname='RMRSenSadagah'>
+                    <BodySection title="Get RMR2002 (Sen-Bahaeldin 2002)" screenname='RMRSenSadagah'>
                         Get RMR 2002 by providing data such as: UCS of intact rock material, rock quality designation (RQD) and so on.
                     </BodySection>
                     <Divider />

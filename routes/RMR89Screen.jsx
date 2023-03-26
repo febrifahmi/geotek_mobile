@@ -1,5 +1,5 @@
 import { Button } from '@rneui/base';
-import React from 'react';
+import React, { useState } from 'react';
 import {
     SafeAreaView,
     ScrollView,
@@ -14,15 +14,17 @@ import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { Divider } from '@rneui/themed';
 import { Collapse, CollapseHeader, CollapseBody, AccordionList } from 'accordion-collapse-react-native';
 import Ionicons from 'react-native-vector-icons/MaterialIcons';
+import SelectDropdown from 'react-native-select-dropdown'
 
-const { CalcR1, CalcR2, CalcR3, CalcDiscontinuityClass, CalcR5, CalcRMR89 } = require('geotekppu-js/geotekppu-js/rmr/rmr__bieniawski1989');
+
+const { CalcR1, CalcR2, CalcR3, CalcDiscontinuityClass, CalcR5, CalcR5Simple, CalcRMR89 } = require('geotekppu-js/geotekppu-js/rmr/rmr__bieniawski1989');
+
 
 export function RMR89Screen() {
     const isDarkMode = useColorScheme() === 'dark';
     const backgroundStyle = {
         backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
     };
-    const [prjname, onChangePrjName] = React.useState('newproject');
     const [idx, onChangeIdx] = React.useState('idx');
     const [strength, onChangeStrength] = React.useState('strength');
     const [r1, onChangeR1] = React.useState(0);
@@ -36,11 +38,10 @@ export function RMR89Screen() {
     const [gouge, onChangegouge] = React.useState('gouge')
     const [weather, onChangeweather] = React.useState('weather')
     const [r4, onChangeR4] = React.useState(0)
-    const [inflow, onChangeinflow] = React.useState('inflow')
-    const [wpress, onChangewpress] = React.useState('wpress')
-    const [cond, onChangecond] = React.useState('cond')
+    const [wcond, onChangeWcond] = useState();
     const [r5, onChangeR5] = React.useState(0)
     const [rmr89, onChangeRMR89] = React.useState(0)
+
     return (
         <SafeAreaView style={backgroundStyle}>
             <ScrollView>
@@ -145,20 +146,59 @@ export function RMR89Screen() {
                                 onChangeText={onChangesep}
                                 value={sep}
                             />
-                            <TextInput
-                                style={styles.input}
-                                onChangeText={onChangerough}
-                                value={rough}
+                            <SelectDropdown
+                                defaultButtonText='select roughness'
+                                data={['very_rough', 'rough', 'slightly_rough', 'smooth', 'slickensided']}
+                                onSelect={(selectedItem, index) => {
+                                    // console.log(selectedItem, index)
+                                    onChangerough(selectedItem)
+                                }}
+                                buttonTextAfterSelection={(selectedItem, index) => {
+                                    // text represented after item is selected
+                                    // if data array is an array of objects then return selectedItem.property to render after item is selected
+                                    return selectedItem
+                                }}
+                                rowTextForSelection={(item, index) => {
+                                    // text represented for each item in dropdown
+                                    // if data array is an array of objects then return item.property to represent item in dropdown
+                                    return item
+                                }}
                             />
-                            <TextInput
-                                style={styles.input}
-                                onChangeText={onChangegouge}
-                                value={gouge}
+                            <SelectDropdown
+                                defaultButtonText='select gouge'
+                                data={['none', 'hl<5', 'hl>5', 'sl<5', 'sl>5']}
+                                onSelect={(selectedItem, index) => {
+                                    // console.log(selectedItem, index)
+                                    onChangegouge(selectedItem)
+                                }}
+                                buttonTextAfterSelection={(selectedItem, index) => {
+                                    // text represented after item is selected
+                                    // if data array is an array of objects then return selectedItem.property to render after item is selected
+                                    return selectedItem
+                                }}
+                                rowTextForSelection={(item, index) => {
+                                    // text represented for each item in dropdown
+                                    // if data array is an array of objects then return item.property to represent item in dropdown
+                                    return item
+                                }}
                             />
-                            <TextInput
-                                style={styles.input}
-                                onChangeText={onChangeweather}
-                                value={weather}
+                            <SelectDropdown
+                                defaultButtonText='select weathering'
+                                data={['unweathered', 'slightly_weathered', 'moderately_weathered', 'highly_weathered', 'decomposed']}
+                                onSelect={(selectedItem, index) => {
+                                    // console.log(selectedItem, index)
+                                    onChangeweather(selectedItem)
+                                }}
+                                buttonTextAfterSelection={(selectedItem, index) => {
+                                    // text represented after item is selected
+                                    // if data array is an array of objects then return selectedItem.property to render after item is selected
+                                    return selectedItem
+                                }}
+                                rowTextForSelection={(item, index) => {
+                                    // text represented for each item in dropdown
+                                    // if data array is an array of objects then return item.property to represent item in dropdown
+                                    return item
+                                }}
                             />
                         </View>
                         <Button radius='md' title='Calculate R4' onPress={() => onChangeR4(CalcDiscontinuityClass(dl, sep, rough, gouge, weather))}></Button>
@@ -172,30 +212,33 @@ export function RMR89Screen() {
                                 <Text style={{ color: isDarkMode ? Colors.lighter : Colors.lighter }}>Groundwater condition (<Text style={{ fontWeight: '800' }}>R5</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
                             </CollapseHeader>
                             <CollapseBody style={styles.collapseBody}>
-                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.darker }}>Calculate Parameter R5 (groundwater condition). Input three values: 'inflow' inflow per 10 m tunnel length (i/m) (None or number), 'wpress' joint water pressure / major principal, 'cond' general conditions ('dry', 'damp', 'wet', 'dripping', or 'flowing').</Text>
+                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.darker }}>Calculate Parameter R5 (groundwater condition). Input one value: 'wcond' general conditions of rock material ('dry', 'damp', 'wet', 'dripping', or 'flowing'). Other values such as 'inflow' inflow per 10 m tunnel length (i/m) (None or number) and 'wpress' joint water pressure / major principal will be considered automatically from the general condition.</Text>
                             </CollapseBody>
                         </Collapse>
                         <View style={styles.formContainer}>
-                            <Text>R5(inflow,wpress,cond):</Text>
-                            <TextInput
-                                style={styles.input}
-                                onChangeText={onChangeinflow}
-                                value={inflow}
-                            />
-                            <TextInput
-                                style={styles.input}
-                                onChangeText={onChangewpress}
-                                value={wpress}
-                            />
-                            <TextInput
-                                style={styles.input}
-                                onChangeText={onChangecond}
-                                value={cond}
+                            <Text>R5(wcond):</Text>
+                            <SelectDropdown
+                                defaultButtonText='select wcond'
+                                data={['dry', 'damp', 'wet', 'dripping', 'flowing']}
+                                onSelect={(selectedItem, index) => {
+                                    // console.log(selectedItem, index)
+                                    onChangeWcond(selectedItem)
+                                }}
+                                buttonTextAfterSelection={(selectedItem, index) => {
+                                    // text represented after item is selected
+                                    // if data array is an array of objects then return selectedItem.property to render after item is selected
+                                    return selectedItem
+                                }}
+                                rowTextForSelection={(item, index) => {
+                                    // text represented for each item in dropdown
+                                    // if data array is an array of objects then return item.property to represent item in dropdown
+                                    return item
+                                }}
                             />
                         </View>
-                        <Button radius='md' title='Calculate R5' onPress={() => onChangeR5(CalcR5(inflow, wpress, cond))}></Button>
-                        <Text>R5 value = <Text style={{ color: 'green', fontWeight: '800' }}>{r5}</Text></Text>
-                        {r5 === null ? <Text style={{ color: 'red' }}>Out of bound. Please read the guidelines.</Text> : ''}
+                        <Button radius='md' title='Calculate R5' onPress={() => onChangeR5(CalcR5Simple(wcond))}></Button>
+                        <Text>R5 value = <Text style={{ color: 'green', fontWeight: '800' }}>{r5['val_r5']}</Text></Text>
+                        {r5['val_r5'] === null ? <Text style={{ color: 'red' }}>Out of bound. Please read the guidelines.</Text> : ''}
                     </View>
                     <Divider />
                     <View style={styles.parameterSection}>
@@ -207,8 +250,8 @@ export function RMR89Screen() {
                                 <Text style={{ color: isDarkMode ? Colors.darker : Colors.darker }}>Calculate Rock Mass Rating (RMR) 89 as proposed by Bieniawski (1989) from five parameters above: 'r1' strength rating, 'r2' Rock Quality Designation (RQD) rating, 'r3' space of discontinuity rating, 'r4' condition of discontinuity rating, and 'r5' groundwater rating.</Text>
                             </CollapseBody>
                         </Collapse>
-                        <Button color='success' radius='md' title='Calculate RMR89' onPress={() => onChangeRMR89(CalcRMR89(r1,r2,r3,r4,r5))}></Button>
-                        <Text style={{backgroundColor: 'gray', color: isDarkMode ? Colors.darker : Colors.lighter, padding: 10, fontSize: 16}}>RMR89 = <Text style={{ color: 'yellow', fontWeight: '800' }}>{rmr89}</Text></Text>
+                        <Button color='success' radius='md' title='Calculate RMR89' onPress={() => onChangeRMR89(CalcRMR89(r1, r2, r3, r4, r5['val_r5']))}></Button>
+                        <Text style={{ backgroundColor: 'gray', color: isDarkMode ? Colors.darker : Colors.lighter, padding: 10, fontSize: 16 }}>RMR89 = <Text style={{ color: 'yellow', fontWeight: '800' }}>{rmr89}</Text></Text>
                         {rmr89 === null ? <Text style={{ color: 'red' }}>Out of bound. Please read the guidelines.</Text> : ''}
                     </View>
                 </View>
