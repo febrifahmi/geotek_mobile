@@ -1,5 +1,5 @@
 import { Button } from '@rneui/base';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     SafeAreaView,
     ScrollView,
@@ -8,13 +8,26 @@ import {
     Text,
     useColorScheme,
     View,
-    TextInput
+    TextInput,
+    TouchableOpacity,
+    Alert
 } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { Divider } from '@rneui/themed';
 import { Collapse, CollapseHeader, CollapseBody, AccordionList } from 'accordion-collapse-react-native';
 import Ionicons from 'react-native-vector-icons/MaterialIcons';
 import SelectDropdown from 'react-native-select-dropdown'
+import { openDatabase } from 'react-native-sqlite-storage';
+
+
+function openCB() {
+    console.log('Database open!')
+}
+function errorCB(err) {
+    console.log(err)
+}
+
+var db = openDatabase({ name: 'ObservationDatabase.db' }, openCB, errorCB);
 
 
 const { CalcR1, CalcR2, CalcR3, CalcDiscontinuityClass, CalcR5, CalcR5Simple, CalcRMR89 } = require('geotekppu-js/geotekppu-js/rmr/rmr__bieniawski1989');
@@ -25,6 +38,8 @@ export function RMR89Screen() {
     const backgroundStyle = {
         backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
     };
+    const [prjname, onChangePrjname] = React.useState('project_name')
+    const [selectedprjname, setProjectName] = React.useState('')
     const [idx, onChangeIdx] = React.useState('idx');
     const [strength, onChangeStrength] = React.useState('strength');
     const [r1, onChangeR1] = React.useState(0);
@@ -41,10 +56,115 @@ export function RMR89Screen() {
     const [wcond, onChangeWcond] = useState();
     const [r5, onChangeR5] = React.useState(0)
     const [rmr89, onChangeRMR89] = React.useState(0)
+    const [datapointname, onChangeDatapointname] = React.useState('datapoint_name')
+    const [observationdata, onChangeObsData] = React.useState([])
+
+    // check if table name already exist
+    function checkTableExist() {
+        db.transaction(function (txn) {
+            txn.executeSql(
+                "SELECT * FROM sqlite_master WHERE type='table'",
+                [],
+                function (tx, res) {
+                    console.log('item:', res.rows.length);
+                    if (res.rows.length >= 0) {
+                        for (i = 0; i < res.rows.length; i++) {
+                            console.log(res.rows.item(i))
+                        }
+                    }
+                }
+            );
+        });
+    }
+    useEffect(() => {
+        checkTableExist();
+    }, []);
+    // Create Table rmr89_observation
+    const createTableRMR89 = () => {
+        if (selectedprjname) {
+            db.transaction(function (txn) {
+                txn.executeSql(
+                    `SELECT name FROM sqlite_master WHERE type='table' AND name='rmr89_observation_${selectedprjname}'`,
+                    [],
+                    function (tx, res) {
+                        console.log('item:', res.rows.length);
+                        if (res.rows.length == 0) {
+                            txn.executeSql(`DROP TABLE IF EXISTS rmr89_observation_${selectedprjname}`, []);
+                            txn.executeSql(
+                                `CREATE TABLE IF NOT EXISTS rmr89_observation_${selectedprjname}(obs_id INTEGER PRIMARY KEY AUTOINCREMENT, datapoint_name VARCHAR(30), r1_idx VARCHAR(25), r1_strength INT(15), r1 INT(15), r2_rqd INT(15), r2 INT(15), r3_spacing INT(15), r3 INT(15), r4_dl INT(15), r4_sep INT(15), r4_rough VARCHAR(25), r4_gouge VARCHAR(25), r4_weather VARCHAR(25), r4 INT(15), r5_wcond VARCHAR(25), r5 INT(15), rmr89 INT(15))`,
+                                []
+                            );
+                        }
+                    }
+                );
+            })
+            Alert.alert(`Successfully Created Table rmr89_observation_${selectedprjname}...`);
+        }
+    };
+
+    const insertData = (datapoint_name, r1_idx, r1_strength, r1, r2_rqd, r2, r3_spacing, r3, r4_dl, r4_sep, r4_rough, r4_gouge, r4_weather, r4, r5_wcond, r5, rmr89) => {
+        console.log("Isi data: " + datapoint_name, r1_idx, r1_strength, r1, r2_rqd, r2, r3_spacing, r3, r4_dl, r4_sep, r4_rough, r4_gouge, r4_weather, r4, r5_wcond, r5, rmr89)
+        db.transaction(function (txn) {
+            txn.executeSql(
+                `INSERT INTO rmr89_observation_${selectedprjname} (datapoint_name, r1_idx, r1_strength, r1, r2_rqd, r2, r3_spacing, r3, r4_dl, r4_sep, r4_rough, r4_gouge, r4_weather, r4, r5_wcond, r5, rmr89) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+                [datapoint_name, r1_idx, r1_strength, r1, r2_rqd, r2, r3_spacing, r3, r4_dl, r4_sep, r4_rough, r4_gouge, r4_weather, r4, r5_wcond, r5, rmr89],
+                (tx, results) => {
+                    console.log('Results', results);
+                    if (results.rowsAffected > 0) {
+                        Alert.alert('Data Inserted Successfully....');
+                    } else Alert.alert('Failed....');
+                }
+            );
+        });
+
+        displayObservationData();
+        return displayObservationData()
+
+    }
+
+    const displayObservationData = () => {
+        // console.log(`rmr89_observation_${selectedprjname}`)
+        db.transaction(function (txn) {
+            txn.executeSql(
+                `SELECT * FROM rmr89_observation_${selectedprjname}`,
+                [],
+                (tx, results) => {
+                    var temp = [];
+                    for (let i = 0; i < results.rows.length; ++i)
+                        temp.push(results.rows.item(i));
+                    console.log(temp);
+                    onChangeObsData(temp)
+                }
+            );
+        })
+    }
+
 
     return (
         <SafeAreaView style={backgroundStyle}>
             <ScrollView>
+                <View style={styles.projectSection}>
+                    <Collapse>
+                        <CollapseHeader style={styles.collapseHeaderProject}>
+                            <Text style={{ color: isDarkMode ? Colors.lighter : Colors.lighter }}>Config Project (<Text style={{ fontWeight: '800' }}>Project</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
+                        </CollapseHeader>
+                        <CollapseBody style={styles.collapseBody}>
+                            <Text style={{ color: isDarkMode ? Colors.darker : Colors.darker }}>Set project name and create observation table for RMR89.</Text>
+                        </CollapseBody>
+                    </Collapse>
+                    <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
+                        <TextInput
+                            style={styles.inputFullWidth}
+                            onChangeText={onChangePrjname}
+                            value={prjname}
+                        />
+                        <Button radius='md' width={150} title='Set' onPress={() => setProjectName(prjname)}></Button>
+                    </View>
+                    {selectedprjname ? <Text style={{ fontWeight: '800' }}>Project Name: {selectedprjname}</Text> : ""}
+                    <Button disabled={selectedprjname ? false : true} color='secondary' radius='md' title='Create Observation Table' onPress={() => createTableRMR89()}></Button>
+                    <Button color='warning' radius='md' title='Open Observation Table' onPress={() => displayObservationData()}></Button>
+                </View>
+                <Divider />
                 <View style={styles.sectionContainer}>
                     <StatusBar
                         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
@@ -166,7 +286,7 @@ export function RMR89Screen() {
                             />
                             <SelectDropdown
                                 defaultButtonText='select gouge'
-                                data={['none', 'hl<5', 'hl>5', 'sl<5', 'sl>5']}
+                                data={['None', 'hl<5', 'hl>5', 'sl<5', 'sl>5']}
                                 onSelect={(selectedItem, index) => {
                                     // console.log(selectedItem, index)
                                     onChangegouge(selectedItem)
@@ -254,6 +374,27 @@ export function RMR89Screen() {
                         <Text style={{ backgroundColor: 'gray', color: isDarkMode ? Colors.darker : Colors.lighter, padding: 10, fontSize: 16 }}>RMR89 = <Text style={{ color: 'yellow', fontWeight: '800' }}>{rmr89}</Text></Text>
                         {rmr89 === null ? <Text style={{ color: 'red' }}>Out of bound. Please read the guidelines.</Text> : ''}
                     </View>
+                    <Divider />
+                    <TextInput
+                        style={styles.input}
+                        onChangeText={onChangeDatapointname}
+                        value={datapointname}
+                    />
+                    <Button color='warning' radius='md' title='Insert Result into Table' onPress={() => insertData(datapointname, idx, strength, r1, drillcoreRQD, r2, spacing, r3, dl, sep, rough, gouge, weather, r4, wcond, r5['val_r5'], rmr89)}></Button>
+                    <View style={{ marginTop: 10 }}>
+                        <Text style={{fontWeight: '800'}}>Observation Data:</Text>
+                        <View style={{marginTop: 8}}>
+                            {observationdata ?
+                                observationdata.map((item) => {
+                                    console.log(observationdata)
+                                    return (
+                                        <View key={item.obs_id} style={styles.dataItem}>
+                                            <Text>Data point: {item.datapoint_name} | RMR89: {item.rmr89}</Text>
+                                        </View>
+                                    )
+                                }) : console.log(observationdata)}
+                        </View>
+                    </View>
                 </View>
             </ScrollView>
         </SafeAreaView>
@@ -275,6 +416,12 @@ const styles = StyleSheet.create({
         fontSize: 12,
         width: 80
     },
+    inputFullWidth: {
+        borderColor: 'gray',
+        borderWidth: 1,
+        fontSize: 12,
+        width: 200
+    },
     inputPrjName: {
         borderColor: 'gray',
         borderWidth: 1,
@@ -282,6 +429,16 @@ const styles = StyleSheet.create({
         width: 200
     },
     collapseHeader: {
+        backgroundColor: 'gray',
+        paddingVertical: 2,
+        paddingHorizontal: 6,
+        borderRadius: 4,
+        marginBottom: 10,
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    collapseHeaderProject: {
         backgroundColor: 'gray',
         paddingVertical: 2,
         paddingHorizontal: 6,
@@ -307,7 +464,19 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         gap: 10,
     },
+    projectSection: {
+        paddingVertical: 20,
+        paddingHorizontal: 20,
+        gap: 10,
+    },
     buttonStyle: {
         borderRadius: 8,
     },
+    dataItem: {
+        paddingVertical: 4,
+        paddingHorizontal: 8,
+        backgroundColor: 'gray',
+        borderRadius: 4,
+        marginVertical: 2,
+    }
 });

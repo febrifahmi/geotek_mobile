@@ -22,6 +22,7 @@ import { RMR14Screen } from './RMR14Screen'
 import { RMRhlwScreen } from './RMRhlwScreen'
 import { RMRSenSadagahScreen } from './RMRSenSadagahScreen'
 
+
 const HomeStack = createStackNavigator();
 
 
@@ -134,13 +135,13 @@ export function HomeScreen() {
                     <BodySection title="Get RMRb (Geocontrol 2012)" screenname='RMRb'>
                         Get RMRb (RMR basic) by providing data such as: uniaxial compressive strength (UCS) of intact rock material, RQD, and so on.
                     </BodySection>
-                    <BodySection title="Get RMR14 (Celada et.al 2014)" screenname='RMR14'>
-                        Get RMR14 by providing data such as: strike orientation, dip angle, RMRb, and so on.
+                    <BodySection title="Get RMR14 (Celada et.al 2014) (tunnel)" screenname='RMR14(tunnel)'>
+                        For tunnel works, get RMR14 by providing data such as: strike orientation, dip angle, RMRb, and so on.
                     </BodySection>
                     <BodySection title="Get RMRhlw (Tong et.al 2022)" screenname='RMRhlw'>
                         Get RMR for High-Level Radioactive Waste Disposal (HLW) by providing data such as: UCS of intact rock material, rock quality designation (RQD), space of discontinuity, etc.
                     </BodySection>
-                    <BodySection title="Get RMR2002 (Sen-Bahaeldin 2002)" screenname='RMRSenSadagah'>
+                    <BodySection title="Get RMR2002 (Sen-Bahaeldin 2002)" screenname='RMRSen-Bahaeldin'>
                         Get RMR 2002 by providing data such as: UCS of intact rock material, rock quality designation (RQD) and so on.
                     </BodySection>
                     <Divider />
@@ -160,9 +161,9 @@ export function HomeStackScreen() {
             <HomeStack.Screen name='HomeScreen' component={HomeScreen} options={{headerShown: false}} />
             <HomeStack.Screen name='RMR89' component={RMR89Screen} />
             <HomeStack.Screen name='RMRb' component={RMRbScreen} />
-            <HomeStack.Screen name='RMR14' component={RMR14Screen} />
+            <HomeStack.Screen name='RMR14(tunnel)' component={RMR14Screen} />
             <HomeStack.Screen name='RMRhlw' component={RMRhlwScreen} />
-            <HomeStack.Screen name='RMRSenSadagah' component={RMRSenSadagahScreen} />
+            <HomeStack.Screen name='RMRSen-Bahaeldin' component={RMRSenSadagahScreen} />
         </HomeStack.Navigator>
     )
 }
