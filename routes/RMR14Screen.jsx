@@ -14,8 +14,9 @@ import { Divider } from '@rneui/themed';
 import { Collapse, CollapseHeader, CollapseBody, AccordionList } from 'accordion-collapse-react-native';
 import Ionicons from 'react-native-vector-icons/MaterialIcons';
 import { Button } from '@rneui/base';
+import SelectDropdown from 'react-native-select-dropdown'
 
-const { CalcF0, CalcFexcavation, CalcICE, CalcFStressStrain, RMRbAdj, RMR14 } = require('geotekppu-js/geotekppu-js/rmr/rmr_celada_etal2014')
+const { CalcF0, CalcFexcavation, CalcFexcavationNew, CalcICE, CalcFStressStrain, RMRbAdj, RMR14 } = require('geotekppu-js/geotekppu-js/rmr/rmr_celada_etal2014')
 
 export function RMR14Screen() {
     const isDarkMode = useColorScheme() === 'dark';
@@ -25,6 +26,7 @@ export function RMR14Screen() {
     const [strikeorientation, onChangeStrike] = React.useState('strike_orientation')
     const [dipangle, onChangedipangle] = React.useState('dip_angle')
     const [f0, onChangeF0] = React.useState(0)
+    const [method, onChangeMethod] = React.useState('method')
     const [rmrb, onChangeRMRb] = React.useState('RMRb')
     const [fexc, onChangeFexc] = React.useState(0)
     const [ucs, onChangeucs] = React.useState('ucs')
@@ -53,7 +55,7 @@ export function RMR14Screen() {
                                 <Text style={{ color: isDarkMode ? Colors.lighter : Colors.lighter }}>F0 adjustment factor (<Text style={{ fontWeight: '800' }}>F0</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
                             </CollapseHeader>
                             <CollapseBody style={styles.collapseBody}>
-                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.darker }}>F0 is adjustment factor for the orientation of tunnel axis with regard to main set of discontinuities. Input two values: 'strike_orientation' orientation of strike to tunnel axis ('dwd' or drive with dip, 'dad' or drive against dip, 'parallel', 'irrespective'); and 'dip_angle' dip angle (dwd, dad, parallel: 45-90 or 20-45, irrespective: 0-20).</Text>
+                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.darker }}>F0 is adjustment factor for the orientation of tunnel axis with regard to main set of discontinuities. Input two values: 'strike_orientation' orientation of strike to tunnel axis (if orientation is perpendicular directly input 'dwd' or drive with dip, or 'dad' or drive against dip, or for other orientation type just input 'parallel' or 'irrespective'); and 'dip_angle' dip angle (dwd: 20-45 or 45-90, dad: 20-45 or 45-90, parallel: 45-90 or 20-45, irrespective: 0-20).</Text>
                             </CollapseBody>
                         </Collapse>
                         <View style={styles.formContainer}>
@@ -80,18 +82,37 @@ export function RMR14Screen() {
                                 <Text style={{ color: isDarkMode ? Colors.lighter : Colors.lighter }}>Fexcavation adjustment factor (<Text style={{ fontWeight: '800' }}>Fexc</Text>)</Text><Ionicons name='expand-more' size={16} color='yellow' />
                             </CollapseHeader>
                             <CollapseBody style={styles.collapseBody}>
-                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.darker }}>Adjustment factor for RMR considering excavation method (Tunneling Bore Method/TBM or Drill and Blast/D+B). Input one value: 'rmrb' RMR basic (before adjustment).</Text>
+                                <Text style={{ color: isDarkMode ? Colors.darker : Colors.darker }}>Adjustment factor for RMR considering excavation method (Tunneling Bore Method/TBM, Drill and Blast/D+B, or New Austria Tunneling Method/NATM). Input two values: 'method' the excavation method used ('tbm' for TBM, 'db' for D+B, or 'natm' for NATM), 'rmrb' RMR basic (before adjustment). In the case you use 'db' or 'natm' no need to input the value of 'rmrb'.</Text>
                             </CollapseBody>
                         </Collapse>
                         <View style={styles.formContainer}>
-                            <Text>Fexc(rmrb):</Text>
+                            <Text>Fexc(method,rmrb):</Text>
+                            <SelectDropdown
+                                defaultButtonText='select method'
+                                data={['tbm', 'db', 'natm']}
+                                onSelect={(selectedItem, index) => {
+                                    // console.log(selectedItem, index)
+                                    onChangeMethod(selectedItem)
+                                }}
+                                buttonTextAfterSelection={(selectedItem, index) => {
+                                    // text represented after item is selected
+                                    // if data array is an array of objects then return selectedItem.property to render after item is selected
+                                    return selectedItem
+                                }}
+                                rowTextForSelection={(item, index) => {
+                                    // text represented for each item in dropdown
+                                    // if data array is an array of objects then return item.property to represent item in dropdown
+                                    return item
+                                }}
+                            />
                             <TextInput
+                                editable={method == 'db' || method == 'natm' ? false : true}
                                 style={styles.input}
                                 onChangeText={onChangeRMRb}
                                 value={rmrb}
                             />
                         </View>
-                        <Button radius='md' title='Calculate Fexc' onPress={() => onChangeFexc(CalcFexcavation(rmrb))}></Button>
+                        <Button radius='md' title='Calculate Fexc' onPress={() => onChangeFexc(CalcFexcavationNew(method,rmrb))}></Button>
                         <Text>Fexc value = <Text style={{ color: 'green', fontWeight: '800' }}>{fexc}</Text></Text>
                         {fexc === null ? <Text style={{ color: 'red' }}>Out of bound. Please read the guidelines.</Text> : ''}
                     </View>
