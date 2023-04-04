@@ -10,7 +10,8 @@ import {
     View,
     TextInput,
     TouchableOpacity,
-    Alert
+    Alert,
+    Dimensions
 } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { Divider } from '@rneui/themed';
@@ -18,6 +19,11 @@ import { Collapse, CollapseHeader, CollapseBody, AccordionList } from 'accordion
 import Ionicons from 'react-native-vector-icons/MaterialIcons';
 import SelectDropdown from 'react-native-select-dropdown'
 import { openDatabase } from 'react-native-sqlite-storage';
+import { FlatList } from 'react-native-gesture-handler';
+
+// get screen width
+var screenwidth = Dimensions.get('window').width
+var screenheight = Dimensions.get('window').height
 
 
 function openCB() {
@@ -58,20 +64,26 @@ export function RMR89Screen() {
     const [rmr89, onChangeRMR89] = React.useState(0)
     const [datapointname, onChangeDatapointname] = React.useState('datapoint_name')
     const [observationdata, onChangeObsData] = React.useState([])
+    const [existingtable, onChangeExistingTable] = React.useState([])
+    const [selectedtable, onChangeSelectedTable] = React.useState()
 
     // check if table name already exist
     function checkTableExist() {
         db.transaction(function (txn) {
             txn.executeSql(
-                "SELECT * FROM sqlite_master WHERE type='table'",
+                "SELECT * FROM sqlite_master WHERE type='table' and name LIKE 'RMR89%'",
                 [],
                 function (tx, res) {
+                    let temp = []
                     console.log('item:', res.rows.length);
                     if (res.rows.length >= 0) {
                         for (i = 0; i < res.rows.length; i++) {
                             console.log(res.rows.item(i))
+                            temp.push(res.rows.item(i)['name'])
                         }
                     }
+                    console.log(temp)
+                    onChangeExistingTable(temp)
                 }
             );
         });
@@ -118,15 +130,14 @@ export function RMR89Screen() {
         });
 
         displayObservationData();
-        return displayObservationData()
 
     }
 
-    const displayObservationData = () => {
+    const displayObservationData = (tablename) => {
         // console.log(`rmr89_observation_${selectedprjname}`)
         db.transaction(function (txn) {
             txn.executeSql(
-                `SELECT * FROM rmr89_observation_${selectedprjname}`,
+                `SELECT * FROM ${tablename}`,
                 [],
                 (tx, results) => {
                     var temp = [];
@@ -162,7 +173,6 @@ export function RMR89Screen() {
                     </View>
                     {selectedprjname ? <Text style={{ fontWeight: '800' }}>Project Name: {selectedprjname}</Text> : ""}
                     <Button disabled={selectedprjname ? false : true} color='secondary' radius='md' title='Create Observation Table' onPress={() => createTableRMR89()}></Button>
-                    <Button color='warning' radius='md' title='Open Observation Table' onPress={() => displayObservationData()}></Button>
                 </View>
                 <Divider />
                 <View style={styles.sectionContainer}>
@@ -374,25 +384,77 @@ export function RMR89Screen() {
                         <Text style={{ backgroundColor: 'gray', color: isDarkMode ? Colors.darker : Colors.lighter, padding: 10, fontSize: 16 }}>RMR89 = <Text style={{ color: 'yellow', fontWeight: '800' }}>{rmr89}</Text></Text>
                         {rmr89 === null ? <Text style={{ color: 'red' }}>Out of bound. Please read the guidelines.</Text> : ''}
                     </View>
-                    <Divider />
-                    <TextInput
-                        style={styles.input}
-                        onChangeText={onChangeDatapointname}
-                        value={datapointname}
-                    />
-                    <Button color='warning' radius='md' title='Insert Result into Table' onPress={() => insertData(datapointname, idx, strength, r1, drillcoreRQD, r2, spacing, r3, dl, sep, rough, gouge, weather, r4, wcond, r5['val_r5'], rmr89)}></Button>
+                </View>
+                <Divider />
+                <View style={styles.projectSection}>
+                    <Text style={{ fontWeight: '800', marginBottom: 20 }}>Insert Observation Data into Database</Text>
+                    <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
+                        <TextInput
+                            style={styles.input}
+                            onChangeText={onChangeDatapointname}
+                            value={datapointname}
+                        />
+                        <Button color='green' radius='md' title='Save Result' onPress={() => insertData(datapointname, idx, strength, r1, drillcoreRQD, r2, spacing, r3, dl, sep, rough, gouge, weather, r4, wcond, r5['val_r5'], rmr89)}></Button>
+                    </View>
                     <View style={{ marginTop: 10 }}>
-                        <Text style={{fontWeight: '800'}}>Observation Data:</Text>
-                        <View style={{marginTop: 8}}>
-                            {observationdata ?
-                                observationdata.map((item) => {
-                                    console.log(observationdata)
-                                    return (
-                                        <View key={item.obs_id} style={styles.dataItem}>
-                                            <Text>Data point: {item.datapoint_name} | RMR89: {item.rmr89}</Text>
-                                        </View>
-                                    )
-                                }) : console.log(observationdata)}
+                        <Text style={{ fontWeight: '800', marginBottom: 10 }}>Select existing table to display data:</Text>
+                        <Divider />
+                        <View style={{ marginTop: 10 }}>
+                            <View style={{ marginBottom: 10}}>
+                                <SelectDropdown
+                                    defaultButtonText='select existing table'
+                                    data={existingtable}
+                                    onSelect={(selectedItem, index) => {
+                                        // console.log(selectedItem, index)
+                                        console.log(selectedItem)
+                                    }}
+                                    buttonTextAfterSelection={(selectedItem, index) => {
+                                        // text represented after item is selected
+                                        // if data array is an array of objects then return selectedItem.property to render after item is selected
+                                        onChangeSelectedTable(selectedItem)
+                                    }}
+                                    rowTextForSelection={(item, index) => {
+                                        // text represented for each item in dropdown
+                                        // if data array is an array of objects then return item.property to represent item in dropdown
+                                        return item
+                                    }}
+                                />
+                                {selectedtable ? "" : <Text style={{ color: 'red' }}>(select project table to display existing data.)</Text>}
+                            </View>
+                            {selectedtable ? <Button radius={8} title='Display Data' onPress={() => displayObservationData(selectedtable)} /> : ""}
+                            <ScrollView
+                                horizontal
+                            >
+                                <View style={{ marginTop: 10, flex: 1, flexDirection: 'row', flexWrap: 'nowrap', gap: 10 }}>
+                                    {observationdata.length != 0 ?
+                                        observationdata.map((item) => {
+                                            // console.log(observationdata)
+                                            return (
+                                                <View key={item.obs_id} style={styles.dataItem}>
+                                                    <Text style={{ fontWeight: "800", fontStyle: 'italic' }}>Observation Id: {item.obs_id}</Text>
+                                                    <Divider />
+                                                    <Text>Data point name: {item.datapoint_name}</Text>
+                                                    <View>
+                                                        <Text style={{ fontWeight: '800', color: 'brown' }}>Parameter R1</Text>
+                                                        <Text>idx: {item.r1_idx}</Text>
+                                                        <Text>strength: {item.r1_strength}</Text>
+                                                        <Text>R1: {item.r1}</Text>
+                                                    </View>
+                                                    <View>
+                                                        <Text style={{ fontWeight: '800', color: 'brown' }}>Parameter R2</Text>
+                                                        <Text>drillcoreRQD: {item.r2_rqd}</Text>
+                                                        <Text>R2: {item.r2}</Text>
+                                                    </View>
+                                                    <View>
+                                                        <Text style={{ fontWeight: '800', color: 'brown' }}>Parameter R3</Text>
+                                                        <Text>spacing: {item.r3_spacing}</Text>
+                                                        <Text>R3: {item.r3}</Text>
+                                                    </View>
+                                                </View>
+                                            )
+                                        }) : <Text>There is no data yet in this table.</Text>}
+                                </View>
+                            </ScrollView>
                         </View>
                     </View>
                 </View>
@@ -414,7 +476,6 @@ const styles = StyleSheet.create({
         borderColor: 'gray',
         borderWidth: 1,
         fontSize: 12,
-        width: 80
     },
     inputFullWidth: {
         borderColor: 'gray',
@@ -439,7 +500,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     collapseHeaderProject: {
-        backgroundColor: 'gray',
+        backgroundColor: 'brown',
         paddingVertical: 2,
         paddingHorizontal: 6,
         borderRadius: 4,
@@ -468,6 +529,7 @@ const styles = StyleSheet.create({
         paddingVertical: 20,
         paddingHorizontal: 20,
         gap: 10,
+        backgroundColor: 'darkgray'
     },
     buttonStyle: {
         borderRadius: 8,
@@ -475,8 +537,9 @@ const styles = StyleSheet.create({
     dataItem: {
         paddingVertical: 4,
         paddingHorizontal: 8,
-        backgroundColor: 'gray',
-        borderRadius: 4,
+        backgroundColor: 'gainsboro',
+        borderRadius: 8,
         marginVertical: 2,
+        width: 250
     }
 });
