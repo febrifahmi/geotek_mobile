@@ -1,6 +1,6 @@
 {
   "name": "geotek_mobile",
-  "version": "1.0.6",
+  "version": "1.1.0",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
@@ -21,7 +21,9 @@
     "react": "18.2.0",
     "react-native": "0.71.3",
     "react-native-app-intro-slider": "^4.0.4",
+    "react-native-blob-util": "^0.17.3",
     "react-native-dropdown-picker": "^5.4.6",
+    "react-native-fs": "^2.20.0",
     "react-native-gesture-handler": "^2.9.0",
     "react-native-linear-gradient": "^2.6.2",
     "react-native-picker-select": "^8.0.4",
@@ -29,7 +31,8 @@
     "react-native-screens": "^3.20.0",
     "react-native-select-dropdown": "^3.3.2",
     "react-native-sqlite-storage": "^6.0.1",
-    "react-native-vector-icons": "^9.2.0"
+    "react-native-vector-icons": "^9.2.0",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.19.2/xlsx-0.19.2.tgz"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

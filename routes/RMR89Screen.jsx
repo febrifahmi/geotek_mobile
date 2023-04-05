@@ -19,7 +19,12 @@ import { Collapse, CollapseHeader, CollapseBody, AccordionList } from 'accordion
 import Ionicons from 'react-native-vector-icons/MaterialIcons';
 import SelectDropdown from 'react-native-select-dropdown'
 import { openDatabase } from 'react-native-sqlite-storage';
-import { FlatList } from 'react-native-gesture-handler';
+import * as XLSX from 'xlsx'
+import RNFetchBlob from 'react-native-blob-util';
+
+
+// var XLSX = require("xlsx");
+
 
 // get screen width
 var screenwidth = Dimensions.get('window').width
@@ -91,6 +96,7 @@ export function RMR89Screen() {
     useEffect(() => {
         checkTableExist();
     }, []);
+
     // Create Table rmr89_observation
     const createTableRMR89 = () => {
         if (selectedprjname) {
@@ -114,6 +120,11 @@ export function RMR89Screen() {
         }
     };
 
+    // Delete Table
+
+
+
+    // Insert data into table
     const insertData = (datapoint_name, r1_idx, r1_strength, r1, r2_rqd, r2, r3_spacing, r3, r4_dl, r4_sep, r4_rough, r4_gouge, r4_weather, r4, r5_wcond, r5, rmr89) => {
         console.log("Isi data: " + datapoint_name, r1_idx, r1_strength, r1, r2_rqd, r2, r3_spacing, r3, r4_dl, r4_sep, r4_rough, r4_gouge, r4_weather, r4, r5_wcond, r5, rmr89)
         db.transaction(function (txn) {
@@ -133,6 +144,7 @@ export function RMR89Screen() {
 
     }
 
+    // Display observation data from table
     const displayObservationData = (tablename) => {
         // console.log(`rmr89_observation_${selectedprjname}`)
         db.transaction(function (txn) {
@@ -150,6 +162,19 @@ export function RMR89Screen() {
         })
     }
 
+    // Export data (json) to xls or xlsx
+    const exportData = async (data) => {
+        var worksheet = XLSX.utils.json_to_sheet(data);
+        var workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, "ObservationData");
+        /* write workbook to buffer, RN does not support writeFile, this is a low level write! */
+        const buf = XLSX.write(workbook, { type: 'buffer', bookType: "xlsx" });
+        /* write buffer to file */
+        const filename = RNFetchBlob.fs.dirs.DownloadDir + "/ObservationData.xlsx";
+        console.log(filename)
+        await RNFetchBlob.fs.writeFile(filename, Array.from(buf), 'ascii');
+        Alert.alert('Export data successful.')
+    }
 
     return (
         <SafeAreaView style={backgroundStyle}>
@@ -400,18 +425,18 @@ export function RMR89Screen() {
                         <Text style={{ fontWeight: '800', marginBottom: 10 }}>Select existing table to display data:</Text>
                         <Divider />
                         <View style={{ marginTop: 10 }}>
-                            <View style={{ marginBottom: 10}}>
+                            <View style={{ marginBottom: 10 }}>
                                 <SelectDropdown
                                     defaultButtonText='select existing table'
                                     data={existingtable}
                                     onSelect={(selectedItem, index) => {
                                         // console.log(selectedItem, index)
-                                        console.log(selectedItem)
+                                        onChangeSelectedTable(selectedItem)
                                     }}
                                     buttonTextAfterSelection={(selectedItem, index) => {
                                         // text represented after item is selected
                                         // if data array is an array of objects then return selectedItem.property to render after item is selected
-                                        onChangeSelectedTable(selectedItem)
+                                        return selectedItem
                                     }}
                                     rowTextForSelection={(item, index) => {
                                         // text represented for each item in dropdown
@@ -457,6 +482,8 @@ export function RMR89Screen() {
                             </ScrollView>
                         </View>
                     </View>
+                    <Divider />
+                    <Button color='green' title='Export Data' onPress={() => exportData(observationdata)} />
                 </View>
             </ScrollView>
         </SafeAreaView>
