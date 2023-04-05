@@ -19,7 +19,12 @@ import { Collapse, CollapseHeader, CollapseBody, AccordionList } from 'accordion
 import Ionicons from 'react-native-vector-icons/MaterialIcons';
 import SelectDropdown from 'react-native-select-dropdown'
 import { openDatabase } from 'react-native-sqlite-storage';
-import { FlatList } from 'react-native-gesture-handler';
+import * as XLSX from 'xlsx'
+import RNFetchBlob from 'react-native-blob-util';
+
+
+// var XLSX = require("xlsx");
+
 
 // get screen width
 var screenwidth = Dimensions.get('window').width
@@ -91,6 +96,7 @@ export function RMR89Screen() {
     useEffect(() => {
         checkTableExist();
     }, []);
+
     // Create Table rmr89_observation
     const createTableRMR89 = () => {
         if (selectedprjname) {
@@ -114,11 +120,26 @@ export function RMR89Screen() {
         }
     };
 
-    const insertData = (datapoint_name, r1_idx, r1_strength, r1, r2_rqd, r2, r3_spacing, r3, r4_dl, r4_sep, r4_rough, r4_gouge, r4_weather, r4, r5_wcond, r5, rmr89) => {
+    // Delete Table
+    const deleteTable = (tablename) => {
+        db.transaction(function (txn) {
+            txn.executeSql(
+                `SELECT name FROM sqlite_master WHERE type='table' AND name='${tablename}'`,
+                [],
+                function (tx, res) {
+                    txn.executeSql(`DROP TABLE IF EXISTS ${tablename}`, []);
+                }
+            );
+        })
+        Alert.alert(`Successfully Delete Table ${tablename}`);
+    }
+
+    // Insert data into table
+    const insertData = (tablename, datapoint_name, r1_idx, r1_strength, r1, r2_rqd, r2, r3_spacing, r3, r4_dl, r4_sep, r4_rough, r4_gouge, r4_weather, r4, r5_wcond, r5, rmr89) => {
         console.log("Isi data: " + datapoint_name, r1_idx, r1_strength, r1, r2_rqd, r2, r3_spacing, r3, r4_dl, r4_sep, r4_rough, r4_gouge, r4_weather, r4, r5_wcond, r5, rmr89)
         db.transaction(function (txn) {
             txn.executeSql(
-                `INSERT INTO rmr89_observation_${selectedprjname} (datapoint_name, r1_idx, r1_strength, r1, r2_rqd, r2, r3_spacing, r3, r4_dl, r4_sep, r4_rough, r4_gouge, r4_weather, r4, r5_wcond, r5, rmr89) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+                `INSERT INTO ${tablename} (datapoint_name, r1_idx, r1_strength, r1, r2_rqd, r2, r3_spacing, r3, r4_dl, r4_sep, r4_rough, r4_gouge, r4_weather, r4, r5_wcond, r5, rmr89) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
                 [datapoint_name, r1_idx, r1_strength, r1, r2_rqd, r2, r3_spacing, r3, r4_dl, r4_sep, r4_rough, r4_gouge, r4_weather, r4, r5_wcond, r5, rmr89],
                 (tx, results) => {
                     console.log('Results', results);
@@ -133,6 +154,7 @@ export function RMR89Screen() {
 
     }
 
+    // Display observation data from table
     const displayObservationData = (tablename) => {
         // console.log(`rmr89_observation_${selectedprjname}`)
         db.transaction(function (txn) {
@@ -150,6 +172,19 @@ export function RMR89Screen() {
         })
     }
 
+    // Export data (json) to xls or xlsx
+    const exportData = async (data) => {
+        var worksheet = XLSX.utils.json_to_sheet(data);
+        var workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, "ObservationData");
+        /* write workbook to buffer, RN does not support writeFile, this is a low level write! */
+        const buf = XLSX.write(workbook, { type: 'buffer', bookType: "xlsx" });
+        /* write buffer to file */
+        const filename = RNFetchBlob.fs.dirs.DownloadDir + "/ObservationData.xlsx";
+        console.log(filename)
+        await RNFetchBlob.fs.writeFile(filename, Array.from(buf), 'ascii');
+        Alert.alert('Export data successful.')
+    }
 
     return (
         <SafeAreaView style={backgroundStyle}>
@@ -387,31 +422,22 @@ export function RMR89Screen() {
                 </View>
                 <Divider />
                 <View style={styles.projectSection}>
-                    <Text style={{ fontWeight: '800', marginBottom: 20 }}>Insert Observation Data into Database</Text>
-                    <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <TextInput
-                            style={styles.input}
-                            onChangeText={onChangeDatapointname}
-                            value={datapointname}
-                        />
-                        <Button color='green' radius='md' title='Save Result' onPress={() => insertData(datapointname, idx, strength, r1, drillcoreRQD, r2, spacing, r3, dl, sep, rough, gouge, weather, r4, wcond, r5['val_r5'], rmr89)}></Button>
-                    </View>
                     <View style={{ marginTop: 10 }}>
-                        <Text style={{ fontWeight: '800', marginBottom: 10 }}>Select existing table to display data:</Text>
+                        <Text style={{ fontWeight: '800', marginBottom: 10 }}>Select table to store/display data:</Text>
                         <Divider />
                         <View style={{ marginTop: 10 }}>
-                            <View style={{ marginBottom: 10}}>
+                            <View style={{ marginBottom: 10 }}>
                                 <SelectDropdown
                                     defaultButtonText='select existing table'
                                     data={existingtable}
                                     onSelect={(selectedItem, index) => {
                                         // console.log(selectedItem, index)
-                                        console.log(selectedItem)
+                                        onChangeSelectedTable(selectedItem)
                                     }}
                                     buttonTextAfterSelection={(selectedItem, index) => {
                                         // text represented after item is selected
                                         // if data array is an array of objects then return selectedItem.property to render after item is selected
-                                        onChangeSelectedTable(selectedItem)
+                                        return selectedItem
                                     }}
                                     rowTextForSelection={(item, index) => {
                                         // text represented for each item in dropdown
@@ -419,9 +445,24 @@ export function RMR89Screen() {
                                         return item
                                     }}
                                 />
-                                {selectedtable ? "" : <Text style={{ color: 'red' }}>(select project table to display existing data.)</Text>}
                             </View>
-                            {selectedtable ? <Button radius={8} title='Display Data' onPress={() => displayObservationData(selectedtable)} /> : ""}
+                            <Divider />
+                            <Text style={{ fontWeight: '800', marginTop: 20, marginBottom: 20 }}>Insert Observation Data into Database</Text>
+                            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
+                                <TextInput
+                                    style={styles.input}
+                                    onChangeText={onChangeDatapointname}
+                                    value={datapointname}
+                                />
+                                <Button color='green' radius='md' title='Save Result' onPress={() => insertData(selectedtable, datapointname, idx, strength, r1, drillcoreRQD, r2, spacing, r3, dl, sep, rough, gouge, weather, r4, wcond, r5['val_r5'], rmr89)}></Button>
+                            </View>
+                            <Divider />
+
+                            {selectedtable ?
+                                <View style={{ marginVertical: 10 }}>
+                                    <Button radius={8} title='Display Data' onPress={() => displayObservationData(selectedtable)} />
+                                </View> : ""}
+
                             <ScrollView
                                 horizontal
                             >
@@ -433,22 +474,35 @@ export function RMR89Screen() {
                                                 <View key={item.obs_id} style={styles.dataItem}>
                                                     <Text style={{ fontWeight: "800", fontStyle: 'italic' }}>Observation Id: {item.obs_id}</Text>
                                                     <Divider />
+                                                    <View style={{ backgroundColor: 'yellow' }}>
+                                                        <Text style={{ fontSize: 18, fontWeight: '800' }}>RMR89: <Text style={{ fontSize: 18, fontWeight: '800', color: 'brown' }}>{item.rmr89}</Text></Text>
+                                                    </View>
+                                                    <Divider />
                                                     <Text>Data point name: {item.datapoint_name}</Text>
                                                     <View>
                                                         <Text style={{ fontWeight: '800', color: 'brown' }}>Parameter R1</Text>
                                                         <Text>idx: {item.r1_idx}</Text>
-                                                        <Text>strength: {item.r1_strength}</Text>
+                                                        <Text>strength (MPa): {item.r1_strength}</Text>
                                                         <Text>R1: {item.r1}</Text>
                                                     </View>
                                                     <View>
                                                         <Text style={{ fontWeight: '800', color: 'brown' }}>Parameter R2</Text>
-                                                        <Text>drillcoreRQD: {item.r2_rqd}</Text>
+                                                        <Text>drillcoreRQD (%): {item.r2_rqd}</Text>
                                                         <Text>R2: {item.r2}</Text>
                                                     </View>
                                                     <View>
                                                         <Text style={{ fontWeight: '800', color: 'brown' }}>Parameter R3</Text>
-                                                        <Text>spacing: {item.r3_spacing}</Text>
+                                                        <Text>spacing (m): {item.r3_spacing}</Text>
                                                         <Text>R3: {item.r3}</Text>
+                                                    </View>
+                                                    <View>
+                                                        <Text style={{ fontWeight: '800', color: 'brown' }}>Parameter R4</Text>
+                                                        <Text>discontinuity length (m): {item.r4_dl}</Text>
+                                                        <Text>separation (mm): {item.r4_sep}</Text>
+                                                        <Text>roughness: {item.r4_rough}</Text>
+                                                        <Text>infilling: {item.r4_gouge}</Text>
+                                                        <Text>weathering: {item.r4_weather}</Text>
+                                                        <Text>R5: {item.r5}</Text>
                                                     </View>
                                                 </View>
                                             )
@@ -457,6 +511,13 @@ export function RMR89Screen() {
                             </ScrollView>
                         </View>
                     </View>
+                    <Divider />
+                    <Button radius='md' color='green' title='Export Data' onPress={() => exportData(observationdata)} />
+                </View>
+                <Divider />
+                <View style={{ paddingTop: 10, paddingBottom: 40, paddingHorizontal: 20, backgroundColor: 'cornsilk' }}>
+                    <Text style={{ fontWeight: '800', marginBottom: 20, color: 'maroon' }}>Dangerous Area!</Text>
+                    <Button disabled={selectedtable ? false : true} color='red' radius='md' title='Delete Table' onPress={() => deleteTable(selectedtable)} />
                 </View>
             </ScrollView>
         </SafeAreaView>
@@ -537,7 +598,7 @@ const styles = StyleSheet.create({
     dataItem: {
         paddingVertical: 4,
         paddingHorizontal: 8,
-        backgroundColor: 'gainsboro',
+        backgroundColor: 'ghostwhite',
         borderRadius: 8,
         marginVertical: 2,
         width: 250
