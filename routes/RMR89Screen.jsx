@@ -121,8 +121,21 @@ export function RMR89Screen() {
     };
 
     // Delete Table
-
-
+    const deleteTable = (tablename) => {
+        db.transaction(function (txn) {
+            txn.executeSql(
+                `SELECT name FROM sqlite_master WHERE type='table' AND name='${tablename}'`,
+                [],
+                function (tx, res) {
+                    txn.executeSql(`DROP TABLE IF EXISTS ${tablename}`, []);
+                }
+            );
+        })
+        useEffect(() => {
+            checkTableExist();
+        }, []);
+        Alert.alert(`Successfully Delete Table ${tablename}`);
+    }
 
     // Insert data into table
     const insertData = (datapoint_name, r1_idx, r1_strength, r1, r2_rqd, r2, r3_spacing, r3, r4_dl, r4_sep, r4_rough, r4_gouge, r4_weather, r4, r5_wcond, r5, rmr89) => {
@@ -458,22 +471,35 @@ export function RMR89Screen() {
                                                 <View key={item.obs_id} style={styles.dataItem}>
                                                     <Text style={{ fontWeight: "800", fontStyle: 'italic' }}>Observation Id: {item.obs_id}</Text>
                                                     <Divider />
+                                                    <View style={{backgroundColor:'yellow'}}>
+                                                        <Text style={{ fontSize: 18, fontWeight: '800' }}>RMR89: <Text style={{ fontSize: 18, fontWeight: '800', color: 'brown' }}>{item.rmr89}</Text></Text>
+                                                    </View>
+                                                    <Divider />
                                                     <Text>Data point name: {item.datapoint_name}</Text>
                                                     <View>
                                                         <Text style={{ fontWeight: '800', color: 'brown' }}>Parameter R1</Text>
                                                         <Text>idx: {item.r1_idx}</Text>
-                                                        <Text>strength: {item.r1_strength}</Text>
+                                                        <Text>strength (MPa): {item.r1_strength}</Text>
                                                         <Text>R1: {item.r1}</Text>
                                                     </View>
                                                     <View>
                                                         <Text style={{ fontWeight: '800', color: 'brown' }}>Parameter R2</Text>
-                                                        <Text>drillcoreRQD: {item.r2_rqd}</Text>
+                                                        <Text>drillcoreRQD (%): {item.r2_rqd}</Text>
                                                         <Text>R2: {item.r2}</Text>
                                                     </View>
                                                     <View>
                                                         <Text style={{ fontWeight: '800', color: 'brown' }}>Parameter R3</Text>
-                                                        <Text>spacing: {item.r3_spacing}</Text>
+                                                        <Text>spacing (m): {item.r3_spacing}</Text>
                                                         <Text>R3: {item.r3}</Text>
+                                                    </View>
+                                                    <View>
+                                                        <Text style={{ fontWeight: '800', color: 'brown' }}>Parameter R4</Text>
+                                                        <Text>discontinuity length (m): {item.r4_dl}</Text>
+                                                        <Text>separation (mm): {item.r4_sep}</Text>
+                                                        <Text>roughness: {item.r4_rough}</Text>
+                                                        <Text>infilling: {item.r4_gouge}</Text>
+                                                        <Text>weathering: {item.r4_weather}</Text>
+                                                        <Text>R5: {item.r5}</Text>
                                                     </View>
                                                 </View>
                                             )
@@ -483,7 +509,12 @@ export function RMR89Screen() {
                         </View>
                     </View>
                     <Divider />
-                    <Button color='green' title='Export Data' onPress={() => exportData(observationdata)} />
+                    <Button radius='md' color='green' title='Export Data' onPress={() => exportData(observationdata)} />
+                </View>
+                <Divider />
+                <View style={{ paddingTop: 10, paddingBottom: 40, paddingHorizontal: 20, backgroundColor: 'cornsilk' }}>
+                    <Text style={{ fontWeight: '800', marginBottom: 20, color: 'maroon' }}>Dangerous Area!</Text>
+                    <Button disabled={selectedtable ? false : true} color='red' radius='md' title='Delete Table' onPress={() => deleteTable(selectedtable)} />
                 </View>
             </ScrollView>
         </SafeAreaView>
@@ -564,7 +595,7 @@ const styles = StyleSheet.create({
     dataItem: {
         paddingVertical: 4,
         paddingHorizontal: 8,
-        backgroundColor: 'gainsboro',
+        backgroundColor: 'ghostwhite',
         borderRadius: 8,
         marginVertical: 2,
         width: 250
