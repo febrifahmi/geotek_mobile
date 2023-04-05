@@ -131,18 +131,15 @@ export function RMR89Screen() {
                 }
             );
         })
-        useEffect(() => {
-            checkTableExist();
-        }, []);
         Alert.alert(`Successfully Delete Table ${tablename}`);
     }
 
     // Insert data into table
-    const insertData = (datapoint_name, r1_idx, r1_strength, r1, r2_rqd, r2, r3_spacing, r3, r4_dl, r4_sep, r4_rough, r4_gouge, r4_weather, r4, r5_wcond, r5, rmr89) => {
+    const insertData = (tablename, datapoint_name, r1_idx, r1_strength, r1, r2_rqd, r2, r3_spacing, r3, r4_dl, r4_sep, r4_rough, r4_gouge, r4_weather, r4, r5_wcond, r5, rmr89) => {
         console.log("Isi data: " + datapoint_name, r1_idx, r1_strength, r1, r2_rqd, r2, r3_spacing, r3, r4_dl, r4_sep, r4_rough, r4_gouge, r4_weather, r4, r5_wcond, r5, rmr89)
         db.transaction(function (txn) {
             txn.executeSql(
-                `INSERT INTO rmr89_observation_${selectedprjname} (datapoint_name, r1_idx, r1_strength, r1, r2_rqd, r2, r3_spacing, r3, r4_dl, r4_sep, r4_rough, r4_gouge, r4_weather, r4, r5_wcond, r5, rmr89) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+                `INSERT INTO ${tablename} (datapoint_name, r1_idx, r1_strength, r1, r2_rqd, r2, r3_spacing, r3, r4_dl, r4_sep, r4_rough, r4_gouge, r4_weather, r4, r5_wcond, r5, rmr89) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
                 [datapoint_name, r1_idx, r1_strength, r1, r2_rqd, r2, r3_spacing, r3, r4_dl, r4_sep, r4_rough, r4_gouge, r4_weather, r4, r5_wcond, r5, rmr89],
                 (tx, results) => {
                     console.log('Results', results);
@@ -425,17 +422,8 @@ export function RMR89Screen() {
                 </View>
                 <Divider />
                 <View style={styles.projectSection}>
-                    <Text style={{ fontWeight: '800', marginBottom: 20 }}>Insert Observation Data into Database</Text>
-                    <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <TextInput
-                            style={styles.input}
-                            onChangeText={onChangeDatapointname}
-                            value={datapointname}
-                        />
-                        <Button color='green' radius='md' title='Save Result' onPress={() => insertData(datapointname, idx, strength, r1, drillcoreRQD, r2, spacing, r3, dl, sep, rough, gouge, weather, r4, wcond, r5['val_r5'], rmr89)}></Button>
-                    </View>
                     <View style={{ marginTop: 10 }}>
-                        <Text style={{ fontWeight: '800', marginBottom: 10 }}>Select existing table to display data:</Text>
+                        <Text style={{ fontWeight: '800', marginBottom: 10 }}>Select table to store/display data:</Text>
                         <Divider />
                         <View style={{ marginTop: 10 }}>
                             <View style={{ marginBottom: 10 }}>
@@ -457,9 +445,24 @@ export function RMR89Screen() {
                                         return item
                                     }}
                                 />
-                                {selectedtable ? "" : <Text style={{ color: 'red' }}>(select project table to display existing data.)</Text>}
                             </View>
-                            {selectedtable ? <Button radius={8} title='Display Data' onPress={() => displayObservationData(selectedtable)} /> : ""}
+                            <Divider />
+                            <Text style={{ fontWeight: '800', marginTop: 20, marginBottom: 20 }}>Insert Observation Data into Database</Text>
+                            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
+                                <TextInput
+                                    style={styles.input}
+                                    onChangeText={onChangeDatapointname}
+                                    value={datapointname}
+                                />
+                                <Button color='green' radius='md' title='Save Result' onPress={() => insertData(selectedtable, datapointname, idx, strength, r1, drillcoreRQD, r2, spacing, r3, dl, sep, rough, gouge, weather, r4, wcond, r5['val_r5'], rmr89)}></Button>
+                            </View>
+                            <Divider />
+
+                            {selectedtable ?
+                                <View style={{ marginVertical: 10 }}>
+                                    <Button radius={8} title='Display Data' onPress={() => displayObservationData(selectedtable)} />
+                                </View> : ""}
+
                             <ScrollView
                                 horizontal
                             >
@@ -471,7 +474,7 @@ export function RMR89Screen() {
                                                 <View key={item.obs_id} style={styles.dataItem}>
                                                     <Text style={{ fontWeight: "800", fontStyle: 'italic' }}>Observation Id: {item.obs_id}</Text>
                                                     <Divider />
-                                                    <View style={{backgroundColor:'yellow'}}>
+                                                    <View style={{ backgroundColor: 'yellow' }}>
                                                         <Text style={{ fontSize: 18, fontWeight: '800' }}>RMR89: <Text style={{ fontSize: 18, fontWeight: '800', color: 'brown' }}>{item.rmr89}</Text></Text>
                                                     </View>
                                                     <Divider />
