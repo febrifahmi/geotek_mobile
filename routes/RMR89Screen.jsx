@@ -446,6 +446,7 @@ export function RMR89Screen() {
                                     }}
                                 />
                             </View>
+                            <Text style={{ fontWeight: '800', marginVertical: 10 }}>Table selected: <Text style={{color: 'green'}}>{selectedtable}</Text></Text>
                             <Divider />
                             <Text style={{ fontWeight: '800', marginTop: 20, marginBottom: 20 }}>Insert Observation Data into Database</Text>
                             <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -454,7 +455,7 @@ export function RMR89Screen() {
                                     onChangeText={onChangeDatapointname}
                                     value={datapointname}
                                 />
-                                <Button color='green' radius='md' title='Save Result' onPress={() => insertData(selectedtable, datapointname, idx, strength, r1, drillcoreRQD, r2, spacing, r3, dl, sep, rough, gouge, weather, r4, wcond, r5['val_r5'], rmr89)}></Button>
+                                <Button disabled={datapointname == 'datapoint_name' ? true : false} color='green' radius='md' title='Save Result' onPress={() => insertData(selectedtable, datapointname, idx, strength, r1, drillcoreRQD, r2, spacing, r3, dl, sep, rough, gouge, weather, r4, wcond, r5['val_r5'], rmr89)}></Button>
                             </View>
                             <Divider />
 
@@ -502,6 +503,11 @@ export function RMR89Screen() {
                                                         <Text>roughness: {item.r4_rough}</Text>
                                                         <Text>infilling: {item.r4_gouge}</Text>
                                                         <Text>weathering: {item.r4_weather}</Text>
+                                                        <Text>R4: {item.r4}</Text>
+                                                    </View>
+                                                    <View>
+                                                        <Text style={{ fontWeight: '800', color: 'brown' }}>Parameter R5</Text>
+                                                        <Text>water condition: {item.r5_wcond}</Text>
                                                         <Text>R5: {item.r5}</Text>
                                                     </View>
                                                 </View>
